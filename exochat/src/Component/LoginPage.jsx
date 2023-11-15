@@ -1,6 +1,8 @@
-import React, { useState } from 'react';
-import axios from 'axios';
-
+import React, { useState, useEffect } from 'react';
+import { loginUtente } from '../service/utenteService';
+import { REGISTER_PAGE } from '../utility/Route';
+import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import '../custom/LoginPage.css'
 
 export default function LoginPage() {
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
@@ -11,6 +13,7 @@ export default function LoginPage() {
         errorEmail: '',
         errorPassword: ''
     })
+    const history = useHistory('')
 
 
     function login() {
@@ -42,33 +45,31 @@ export default function LoginPage() {
             password: password,
         };
 
-
+        loginUtente(user)
 
     };
 
-
-
-
-
-
-
-
     return (
         <>
+            <h1 style={{color: ' #eecc8c', fontFamily: 'Fonseca, sans-serif'}}><b>BENVENUTO IN EXOCHAT</b></h1>
+            <div className='containerLogin'>
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+                <b>Email:</b>
+                <br/>
+                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
+            </label>
+            <br />
+            <br />
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+                <b>Password:</b>
+                <br/>
+                <input type="password" placeholder='Inserisci password'style={{textAlign: 'center'}} value={password} onChange={(e) => setPassword(e.target.value)} />
+            </label>
            
-                <label>
-                    Email:
-                    <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
-                </label>
-                <br />
-                <label>
-                    Password:
-                    <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
-                </label>
-                <br />
-                <button type="button">Accedi</button>
-                <button type="button">Registrati</button>
-       
+            <button type="button" className='buttonForLoginPage' onClick={() => login()}>Accedi</button>
+            <br />
+            <button type="button" className='buttonForLoginPage' onClick={()=> {history.push(REGISTER_PAGE)}}>Registrati</button>
+            </div>
 
 
 
