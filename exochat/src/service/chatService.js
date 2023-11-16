@@ -9,7 +9,7 @@ export function findAllChatForUtente(utente, setListaChat){
         setListaChat(response.data)
         console.log(response)
     }).catch(error => {
-        console.error('Errore durante il login:', error);
+        console.error('Errore:', error);
                
       });
 }

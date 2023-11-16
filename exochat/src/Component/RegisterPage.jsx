@@ -8,7 +8,7 @@ import '../custom/RegisterPage.css'
 
 function RegisterPage() {
 
-    const validUsername = /^[A-Za-z]+\s?[A-Za-z]*$/;
+    const validUsername = /^[a-zA-Z0-9_]{3,20}$/;
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
     const history = useHistory();
@@ -48,26 +48,29 @@ function RegisterPage() {
 
 
         if (!validUsername.test(username) || username === '' || username.length <= 4 || username.length >= 20) {
-            setError({ username: 'Inserire username valido' });
+            setError((prevError) => ({ ...prevError, username: 'Inserire username valido' }));
             checkUsername = false;
         } else {
-            setError({ username: '' });
+            setError((prevError) => ({ ...prevError, username: '' }));
             checkUsername = true;
         }
+        
         if (!validEmail.test(email) || email === '' || email.length <= 8 || email.length >= 20) {
-            setError({ email: 'Inserire email valida' });
+            setError((prevError) => ({ ...prevError, email: 'Inserire email valida' }));
             checkEmail = false;
         } else {
-            setError({ email: '' });
+            setError((prevError) => ({ ...prevError, email: '' }));
             checkEmail = true;
         }
+        
         if (!validPassword.test(password) || password === '' || password.length <= 8 || password.length >= 20) {
-            setError({ password: 'Inserire password valida' });
+            setError((prevError) => ({ ...prevError, password: 'Inserire password valida' }));
             checkPassword = false;
         } else {
-            setError({ password: '' });
+            setError((prevError) => ({ ...prevError, password: '' }));
             checkPassword = true;
         }
+        
         if (passwordMatchMessage === 'Le password non corrispondono') {
             checkMatchPass = false;
         } else {
@@ -100,18 +103,21 @@ function RegisterPage() {
                 <b>Username:</b>
                 <input type="text" placeholder='Inserisci username' style={{textAlign: 'center'}}  value={username} onChange={(e) => setUsername(e.target.value)} />
             </label>
+            {error.username && <div style={{ color: 'red' }}>{error.username}</div>}
             <br />
             <br />
             <label style={{color: ' black', fontFamily: 'sans-serif'}}>
                 <b>Email:</b>
                 <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
+            {error.email && <div style={{ color: 'red' }}>{error.email}</div>}
             <br />
             <br />
             <label style={{color: ' black', fontFamily: 'sans-serif'}}>
             <b>Password:</b>
                 <input type="password" placeholder='Inserisci password' style={{textAlign: 'center'}}  value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
+            {error.password && <div style={{ color: 'red' }}>{error.password}</div>}
             <br/>
             <br />
             <label style={{color: ' black', fontFamily: 'sans-serif'}}>

@@ -7,13 +7,13 @@ function ListaChat() {
 
   const utente = useSelector((state) => state.utente)
   const [listaMessaggiPerChat, setListaMessaggiPerChat] = useState([])
-  
-  
+
+
 
   useEffect(() => {
 
     findAllMessageForUtenteForChat(utente, setListaMessaggiPerChat)
-   
+
 
   }, [])
 
@@ -23,22 +23,23 @@ function ListaChat() {
     {utente.idUtente && Object.keys(utente).length > 0 ? (
       <>
         <div className='containerTableLista'>
-      <table>
-        <thead>
-          {listaMessaggiPerChat.map((messaggio) => (
-            <tr key={messaggio.chat.idChat}>
-              <th>
-              <div style={{backgroundColor:"white",width:"500px",height:"50px",borderRadius:"15px",whiteSpace: "nowrap",display:"flex",alignItems:"center",justifyContent:"center"}}>
-                <span style={{color:"black",marginRight:"20px",textAlign:"left"}}><b>{messaggio.destinatario.username}</b></span>
-                <span style={{color:"black",marginRight:"20px"}}>{messaggio.contenutoMessaggio}</span>
-                <span style={{color:"black"}}>{messaggio.dataOra}</span>
-                </div>
-              </th>
-            </tr>
-          ))}
-        </thead>
-      </table>
-    </div>
+          <table className='tableListaChat'>
+            <thead>
+              {listaMessaggiPerChat.map((messaggio) => (
+                <tr key={messaggio.chat.idChat}>
+                  <th>
+
+                    <div className="containerChat" >
+                      <span className='spanChat'><b>{messaggio.destinatario.username}</b></span>
+                      <span className='spanChat'>{messaggio.contenutoMessaggio}</span>
+                      <span className='spanChat'>{messaggio.dataOra}</span>
+                    </div>
+                  </th>
+                </tr>
+              ))}
+            </thead>
+          </table>
+        </div>
       </>
     ) : (
       <>

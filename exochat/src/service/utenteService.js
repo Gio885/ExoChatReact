@@ -22,7 +22,7 @@ export function registerUtente(utente, history){
         history.push(LOGIN_PAGE)
         console.log(response.data)
     }).catch(error => {
-        console.error('Errore durante il login:', error);
+        console.error('Errore durante la registrazione:', error);
                
       });
 }

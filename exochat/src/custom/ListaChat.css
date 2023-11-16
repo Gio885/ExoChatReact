@@ -1,12 +1,46 @@
-.containerTableLista{
-    width: 100px;
+.containerTableLista {
+    width: 350px;
     text-align: center;
-    float: right;
     background-color: #eecc8c;
     color: white;
-    padding: 20px;
+    border-left: 1px solid black;
     position: fixed;
     top: 0;
     bottom: 0;
-    left: 100px;  
+    left: 100px;
 }
+
+.tableListaChat{
+    display: table;
+    border-collapse: separate;
+    box-sizing: border-box;
+    text-indent: initial;
+    border-spacing: 0px;
+    border-color: gray;
+}
+
+.tableListaChat th {
+    margin: 0;
+    padding: 0;
+  }
+  
+
+
+
+
+.containerChat {
+    background-color: aliceblue;
+    width: 349px;
+    height: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    border : 1px solid black
+
+}
+
+.spanChat{
+    color: black;
+}
+

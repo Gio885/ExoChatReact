@@ -9,7 +9,7 @@ export function findAllMessageForUtenteForChat(utente, setListaMessaggiPerChat){
         setListaMessaggiPerChat(response.data)
         console.log(response.data)
     }).catch(error => {
-        console.error('Errore durante il login:', error);
+        console.error('Errore:', error);
                
       });
 }
