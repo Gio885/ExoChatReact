@@ -18,7 +18,7 @@ export function loginUtente(utente, dispatch, setUtente, history){
 }
 //REGISTER
 export function registerUtente(utente){
-    return axios.post(REGISTER_UTENTE, utente).then((response)=> {
+    return axios.post(REGISTER_UTENTE(hostName), utente).then((response)=> {
         console.log(response.data)
     }).catch(error => {
         console.error('Errore durante il login:', error);

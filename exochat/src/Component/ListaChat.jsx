@@ -21,9 +21,11 @@ function ListaChat() {
         <div className='containerTableLista'>
           <table>
             <tr>
+              <thead>
               <th>
                 fatgntn
               </th>
+              </thead>            
               
             </tr>
           </table>
