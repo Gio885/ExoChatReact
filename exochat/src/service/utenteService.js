@@ -1,6 +1,6 @@
 import axios from "axios";
 import { LOGIN_UTENTE, REGISTER_UTENTE } from "../utility/EndPoint";
-import { LISTA_CHAT_UTENTE } from "../utility/Route";
+import { LISTA_CHAT_UTENTE, LOGIN_PAGE } from "../utility/Route";
 
 const hostName = window.location.hostname;
 
@@ -17,8 +17,9 @@ export function loginUtente(utente, dispatch, setUtente, history){
       });
 }
 //REGISTER
-export function registerUtente(utente){
+export function registerUtente(utente, history){
     return axios.post(REGISTER_UTENTE(hostName), utente).then((response)=> {
+        history.push(LOGIN_PAGE)
         console.log(response.data)
     }).catch(error => {
         console.error('Errore durante il login:', error);

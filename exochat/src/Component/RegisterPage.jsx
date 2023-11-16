@@ -82,7 +82,7 @@ function RegisterPage() {
                 password: password,
             };
 
-            registerUtente(userData);
+            registerUtente(userData, history);
 
         } else {
             return;

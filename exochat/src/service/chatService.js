@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LISTA_CHAT_UTENTE, LISTA_CHAT_UTENTE_ID } from "../utility/EndPoint";
+import { LISTA_CHAT_UTENTE_ID } from "../utility/EndPoint";
 
 const hostName = window.location.hostname;
 
