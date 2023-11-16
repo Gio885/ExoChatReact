@@ -1,15 +1,5 @@
-export function raggruppaPerChiave(lista, chiave) {
-    return lista.reduce((raggruppato, elemento) => {
-      const valoreChiave = elemento[chiave];
-  
-      // Se la chiave non esiste ancora nel risultato, creala
-      if (!raggruppato[valoreChiave]) {
-        raggruppato[valoreChiave] = [];
-      }
-  
-      // Aggiungi l'elemento al gruppo corrispondente
-      raggruppato[valoreChiave].push(elemento);
-  
-      return raggruppato;
-    }, {});
-  }
+const { DateTime } = require("luxon");
+
+export function formattaData(data) {
+  return DateTime.fromISO(data).toFormat("HH:mm dd MMM yy");
+}

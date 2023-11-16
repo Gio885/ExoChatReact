@@ -22,7 +22,6 @@ function RegisterPage() {
         password: ''
     })
     const [passwordMatchMessage, setPasswordMatchErrorMessage] = useState('');
-    const dispatch = useDispatch();
 
 
     useEffect(() => {

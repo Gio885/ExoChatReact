@@ -10,7 +10,7 @@
     left: 100px;
 }
 
-.tableListaChat{
+.tableListaChat {
     display: table;
     border-collapse: separate;
     box-sizing: border-box;
@@ -22,25 +22,35 @@
 .tableListaChat th {
     margin: 0;
     padding: 0;
-  }
-  
+}
+
 
 
 
 
 .containerChat {
     background-color: aliceblue;
-    width: 349px;
-    height: 50px;
+    width: 350px;
+    height: 60px;
     display: flex;
     align-items: center;
     justify-content: center;
     text-align: center;
-    border : 1px solid black
-
+    border-top: 1px solid black;
+    border-bottom: 1px solid black
 }
 
-.spanChat{
+.spanChat {
     color: black;
 }
 
+.searchBar {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    margin-top: 0px;
+    padding: 10px;
+    width: 330px;
+    display: flex;
+    flex-direction: row;
+}

@@ -2,13 +2,17 @@ import React from 'react'
 import '../custom/SideBar.css'
 import { REGISTER_PAGE } from '../utility/Route'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
+import { useSelector } from 'react-redux';
 function SideBar() {
 
 
     const history = useHistory('');
+    const utente = useSelector((state) => state.utente)
 
   return ( <>
-    <div className='sidebar'>
+    {utente.idUtente && Object.keys(utente).length > 0 ? (
+      <>
+        <div className='sidebar'>
         {/* LISTA MESSAGGI */}
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-message fa-2x" style={{color: '#050505'}}></i></button>
         <br />
@@ -30,9 +34,17 @@ function SideBar() {
         </div>
 
     </div>
-  
-  
+      </>
+    ) : (
+      <>
+
+      </>)}
+
   </>
+   
+  
+  
+  
   )
 }
 
