@@ -25,7 +25,7 @@ function ListaChat() {
         <div className='containerTableLista'>
       <table>
         <thead>
-          {listaMessaggiPerChat.filter(messaggio => messaggio.chat.idChat ).map((messaggio) => (
+          {listaMessaggiPerChat.map((messaggio) => (
             <tr key={messaggio.chat.idChat}>
               <th>
               <div style={{backgroundColor:"white",width:"500px",height:"50px",borderRadius:"15px",whiteSpace: "nowrap",display:"flex",alignItems:"center",justifyContent:"center"}}>
