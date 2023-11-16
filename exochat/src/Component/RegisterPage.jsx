@@ -3,9 +3,10 @@ import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { LOGIN_PAGE } from '../utility/Route';
 import { registerUtente } from '../service/utenteService';
+import '../custom/RegisterPage.css'
 
 
-export default function RegisterPage() {
+function RegisterPage() {
 
     const validUsername = /^[A-Za-z]+\s?[A-Za-z]*$/;
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
@@ -28,8 +29,10 @@ export default function RegisterPage() {
 
         if (password !== confermaPassword) {
             setPasswordMatchErrorMessage('Le password non corrispondono');
-        } else {
-            setPasswordMatchErrorMessage('Le password corrispondono');
+        } else if( password === '') {
+            setPasswordMatchErrorMessage('');
+        } else if (password === confermaPassword){
+            setPasswordMatchErrorMessage('Le password corrispondono')
         }
     }, [password, confermaPassword]);
 
@@ -44,7 +47,7 @@ export default function RegisterPage() {
 
 
 
-        if (!validUsername.test(username) || username === '' || username.length <= 8 || username.length >= 20) {
+        if (!validUsername.test(username) || username === '' || username.length <= 4 || username.length >= 20) {
             setError({ username: 'Inserire username valido' });
             checkUsername = false;
         } else {
@@ -91,34 +94,42 @@ export default function RegisterPage() {
 
     return (
         <>
-
-            <label>
-                Username:
-                <input type="text" value={username} onChange={(e) => setUsername(e.target.value)} />
+            <h1 style={{color: ' #eecc8c', fontFamily: 'Fonseca, sans-serif'}}><b>REGISTRATI IN EXOCHAT</b></h1>
+            <div className='containerRegister'>
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+                <b>Username:</b>
+                <input type="text" placeholder='Inserisci username' style={{textAlign: 'center'}}  value={username} onChange={(e) => setUsername(e.target.value)} />
             </label>
             <br />
-            <label>
-                Email:
-                <input type="email" value={email} onChange={(e) => setEmail(e.target.value)} />
+            <br />
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+                <b>Email:</b>
+                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <br />
-            <label>
-                Password:
-                <input type="password" value={password} onChange={(e) => setPassword(e.target.value)} />
+            <br />
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <b>Password:</b>
+                <input type="password" placeholder='Inserisci password' style={{textAlign: 'center'}}  value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             <br/>
-            <label>
-                Conferma Password:
-                <input type="password" value={password} onChange={(e) => setConfermaPassword(e.target.value)} />
+            <br />
+            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+                <b>Conferma Password:</b>
+                <input type="password" placeholder='Conferma password' style={{textAlign: 'center'}}  value={confermaPassword} onChange={(e) => setConfermaPassword(e.target.value)} />
             </label>
+            <br />
+            <br />
             {passwordMatchMessage === 'Le password non corrispondono' && <div style={{ color: 'red' }}>{passwordMatchMessage}</div>}
             {passwordMatchMessage === 'Le password corrispondono' && <div style={{ color: 'green' }}>{passwordMatchMessage}</div>}
        
             <div>
-                <button type="button" onClick={() => { register() }}>Registrati</button>
+                <button className='buttonForRegisterPage'  type="button" onClick={() => { register() }}>Registrati</button>
             </div>
             <div>
-                <button type="button" onClick={() => { history.push(LOGIN_PAGE) }}>Torna a login</button>
+                <button className='buttonForRegisterPage' type="button" onClick={() => { history.push(LOGIN_PAGE) }}>Torna a login</button>
+            </div>
+
             </div>
 
 
@@ -128,3 +139,5 @@ export default function RegisterPage() {
         </>
     )
 }
+
+export default RegisterPage;

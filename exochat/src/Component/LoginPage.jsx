@@ -3,8 +3,10 @@ import { loginUtente } from '../service/utenteService';
 import { REGISTER_PAGE } from '../utility/Route';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import '../custom/LoginPage.css'
+import { useDispatch } from 'react-redux';
+import { setUtente } from '../store/slice/utenteSlice';
 
-export default function LoginPage() {
+ function LoginPage() {
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
     const [email, setEmail] = useState();
@@ -14,7 +16,7 @@ export default function LoginPage() {
         errorPassword: ''
     })
     const history = useHistory('')
-
+    const dispatch = useDispatch('')
 
     function login() {
 
@@ -45,7 +47,7 @@ export default function LoginPage() {
             password: password,
         };
 
-        loginUtente(user)
+        loginUtente(user, dispatch, setUtente, history)
 
     };
 
@@ -76,3 +78,5 @@ export default function LoginPage() {
         </>
     )
 }
+
+export default LoginPage;
