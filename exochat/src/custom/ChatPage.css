@@ -1,35 +1,66 @@
-.containerChatPage{
-    width: 1200px;
+.containerChatPage {
+    width: 1030px;
     text-align: center;
     float: left;
     background-color: #eecc8c2d;
     color: white;
-    padding: 20px;
+    padding: 70px;
     position: fixed;
-    top: 0;
+    top: 50px;
     bottom: 0;
-    right: 0;     
+    right: 0;
 }
 
+.profiloContatto {
+    width: 1150px;
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #eecc8c;
+    height: 50px;
+    top: 0; 
+    right: 0;
+    display: flex;   
+    position: fixed;
+    padding: 10px;
+}
 
+.pannelloChat {
+    text-align: center;
+    align-items: center;
+    justify-content: center;
+    background-color: #eecc8c;
+    margin-top: 320px;
+    padding: 10px;
+    width: 1000px;
+    display: flex;
+    position: fixed;
+    bottom: 0;
+    border-radius: 10px;
+}
 
 .messaggio-mittente {
+    width: 200px;
     background-color: white;
     color: black;
     padding: 10px;
-    margin-left: auto; 
-    margin-right: 10px; 
+    margin-left: auto;
+    margin-right: 20px;
+    margin-bottom: 10px;
     border-radius: 10px;
-    max-width: 70%;
-  }
-  
-  .messaggio-destinatario {
+    text-align: left;
+
+}
+
+.messaggio-destinatario {
+    width: 200px;
     background-color: white;
     color: black;
     padding: 10px;
     margin-right: auto;
-    margin-left: 10px; 
+    margin-left: 20px;
+    margin-bottom: 10px;
     border-radius: 10px;
-    max-width: 70%;
-  }
-  
+    text-align: left;
+}
+

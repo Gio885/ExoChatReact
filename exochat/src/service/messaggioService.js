@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LISTA_MESSAGGI_UTENTE_ID_PER_CHAT } from "../utility/EndPoint";
+import { LISTA_MESSAGGI_UTENTE_ID_PER_CHAT, SEND_MESSAGE } from "../utility/EndPoint";
 
 const hostName = window.location.hostname;
 
@@ -7,6 +7,17 @@ const hostName = window.location.hostname;
 export function findAllMessageForUtenteForChat(utente, setListaMessaggiPerChat){
     return axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente).then((response)=> {
         setListaMessaggiPerChat(response.data)
+        console.log(response.data)
+    }).catch(error => {
+        console.error('Errore:', error);
+               
+      });
+}
+
+
+//SENDMESSAGE
+export function sendMessage(messaggio){
+    return axios.post(SEND_MESSAGE(hostName), messaggio).then((response) => {
         console.log(response.data)
     }).catch(error => {
         console.error('Errore:', error);

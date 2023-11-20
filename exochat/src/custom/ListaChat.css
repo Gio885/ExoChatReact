@@ -4,6 +4,7 @@
     background-color: #eecc8c;
     color: white;
     border-left: 1px solid black;
+    border-right: 1px solid black;
     position: fixed;
     top: 0;
     bottom: 0;
@@ -30,14 +31,11 @@
 
 .containerChat {
     background-color: aliceblue;
-    width: 350px;
+    width: 330px;
     height: 60px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     border-top: 1px solid black;
-    border-bottom: 1px solid black
+    border-bottom: 1px solid black;
+    padding: 10px;
 }
 
 .spanChat {

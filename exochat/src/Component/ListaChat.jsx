@@ -22,7 +22,7 @@ function ListaChat() {
   }, [])
 
   function handleChatPage(chat) {
-    dispatch(setChat(chat))    
+    dispatch(setChat(chat))
   }
 
 
@@ -49,11 +49,58 @@ function ListaChat() {
                 <tr key={messaggio.chat.idChat} onClick={() => handleChatPage(messaggio.chat)}>
                   <th>
 
-                    <div className="containerChat" >
-                      <span className='spanChat'><b>{messaggio.destinatario.username}</b></span>
-                      <span className='spanChat'>{messaggio.contenutoMessaggio}</span>
-                      <span className='spanChat'>{formattaData(messaggio.dataOra)} </span>
+                    <div className="containerChat">
+                      <img
+                        src={(messaggio.destinatario.username !== utente.username)
+                          ? `data:image/png;base64,${messaggio.destinatario.fotoConvertita}`
+                          : `data:image/png;base64,${messaggio.mittente.fotoConvertita}`
+                        }
+                        style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '5px 0 0 -290px' }}
+                      />
+                      <span
+
+                        style={{
+                          textAlign: 'left',
+                          color: 'black',
+                          display: 'flex',
+                          marginTop: '-50px',
+                          marginLeft: '60px',
+                          fontSize: '20px',
+                        }}
+                      >
+                        <b>{messaggio.destinatario.username}</b>
+                      </span>
+                      <span
+
+                        style={{
+                          color:'black',
+                          textAlign:'left',
+                          justifyContent:'left',
+                          display:'flex',
+                          marginLeft: '60px',
+                          fontWeight:'normal'
+
+                        }}
+                      >
+                        {messaggio.contenutoMessaggio}
+                      </span>
+                      <br />
+                      <span
+                        style={{
+                          textAlign: 'right',
+                          justifyContent: 'right',
+                          marginLeft: '160px',
+                          marginTop:'-15px',
+                          marginBottom: '15px',
+                          fontSize: '12px',
+                          color: 'gray',
+                          display: 'block',
+                        }}
+                      >
+                        {formattaData(messaggio.dataOra)}
+                      </span>
                     </div>
+
                   </th>
                 </tr>
 
