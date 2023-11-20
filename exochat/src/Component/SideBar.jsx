@@ -2,12 +2,16 @@ import React from 'react'
 import '../custom/SideBar.css'
 import { REGISTER_PAGE } from '../utility/Route'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { resetUtente } from '../store/slice/utenteSlice';
+import { logout } from '../utility/sideBarUtils';
+import { resetChat } from '../store/slice/chatSlice';
 function SideBar() {
 
 
     const history = useHistory('');
     const utente = useSelector((state) => state.utente)
+    const dispatch = useDispatch('')
 
   return ( <>
     {utente.idUtente && Object.keys(utente).length > 0 ? (
@@ -30,7 +34,7 @@ function SideBar() {
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-gear fa-2x" style={{color: "#0d0d0d"}}></i></button>
         <br />
          {/* LOGOUT */}
-        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-right-from-bracket fa-2x" style={{color: "#0d0d0d"}}></i></button>
+        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {logout(resetUtente, resetChat, history, dispatch)}}><i className="fa-solid fa-right-from-bracket fa-2x" style={{color: "#0d0d0d"}}></i></button>
         </div>
 
     </div>

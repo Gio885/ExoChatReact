@@ -11,7 +11,7 @@ import { setUtente } from '../store/slice/utenteSlice';
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
     const [email, setEmail] = useState();
     const [password, setPassword] = useState();
-    const [errorMesage, setErrorMessage] = useState({
+    const [errorMessage, setErrorMessage] = useState({
         errorEmail: '',
         errorPassword: ''
     })
@@ -42,12 +42,12 @@ import { setUtente } from '../store/slice/utenteSlice';
         if (!checkEmail || !checkPassword) {
             return;
         }
-        const user = {
+        const utente = {
             email: email,
             password: password,
         };
 
-        loginUtente(user, dispatch, setUtente, history)
+        loginUtente(utente, dispatch, setUtente, history)
 
     };
 

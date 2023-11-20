@@ -10,7 +10,6 @@ export function loginUtente(utente, dispatch, setUtente, history){
         dispatch(setUtente(response.data))
         history.push(LISTA_CHAT_UTENTE)
         console.log(response.data)
-        console.log(hostName)
     }).catch(error => {
         console.error('Errore durante il login:', error);
                
