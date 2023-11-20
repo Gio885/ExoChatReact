@@ -1,0 +1,35 @@
+.containerChatPage{
+    width: 1200px;
+    text-align: center;
+    float: left;
+    background-color: #eecc8c2d;
+    color: white;
+    padding: 20px;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    right: 0;     
+}
+
+
+
+.messaggio-mittente {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin-left: auto; 
+    margin-right: 10px; 
+    border-radius: 10px;
+    max-width: 70%;
+  }
+  
+  .messaggio-destinatario {
+    background-color: white;
+    color: black;
+    padding: 10px;
+    margin-right: auto;
+    margin-left: 10px; 
+    border-radius: 10px;
+    max-width: 70%;
+  }
+  
