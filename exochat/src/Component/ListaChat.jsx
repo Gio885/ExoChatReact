@@ -1,14 +1,17 @@
 import React, { useEffect, useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useDispatch, useSelector } from 'react-redux'
 import '../custom/ListaChat.css'
+import { useHistory } from 'react-router-dom';
 import { findAllMessageForUtenteForChat } from '../service/messaggioService'
 import { formattaData } from '../utility/Utils'
+import { setChat } from '../store/slice/chatSlice';
 
 function ListaChat() {
 
   const utente = useSelector((state) => state.utente)
   const [listaMessaggiPerChat, setListaMessaggiPerChat] = useState([])
-
+  const history = useHistory('')
+  const dispatch = useDispatch('')
 
 
   useEffect(() => {
@@ -18,13 +21,19 @@ function ListaChat() {
 
   }, [])
 
+  function handleChatPage(chat) {
+    dispatch(setChat(chat))    
+  }
+
+
+
 
   return (<>
 
     {utente.idUtente && Object.keys(utente).length > 0 ? (
       <>
         <div className='containerTableLista'>
-        <h1 style={{color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CHAT</b></h1>
+          <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CHAT</b></h1>
           <div className='searchBar'>
             <input
               type='text'
@@ -37,7 +46,7 @@ function ListaChat() {
             <thead>
 
               {listaMessaggiPerChat && listaMessaggiPerChat.map((messaggio) => (
-                <tr key={messaggio.chat.idChat}>
+                <tr key={messaggio.chat.idChat} onClick={() => handleChatPage(messaggio.chat)}>
                   <th>
 
                     <div className="containerChat" >
