@@ -30,6 +30,7 @@ export function registerUtente(utente, history){
 export function findAllUtente(setContatti){
     return axios.get(LISTA_CONTATTI(hostName)).then((response)=>{
         setContatti(response.data)
+        console.log(response.data)
     }).catch(error =>{
         console.error('Errore nel caricamento della lista contatti: ',error);
     })

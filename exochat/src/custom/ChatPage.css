@@ -2,27 +2,32 @@
     width: 1030px;
     text-align: center;
     float: left;
-    background-color: #eecc8c2d;
     color: white;
     padding: 70px;
     position: fixed;
     top: 50px;
     bottom: 0;
-    right: 0;
+    right: 0;    
+    overflow-y: auto;
+    scrollbar-width: none;
+    max-height: 460px;
+    
 }
 
 .profiloContatto {
-    width: 1150px;
+    width: 1000px;
     text-align: center;
     align-items: center;
     justify-content: center;
     background-color: #eecc8c;
+    margin-right: 75px;
     height: 50px;
-    top: 0; 
+    top: 0;
     right: 0;
-    display: flex;   
+    display: flex;
     position: fixed;
     padding: 10px;
+    border-radius: 10px;
 }
 
 .pannelloChat {
@@ -63,4 +68,3 @@
     border-radius: 10px;
     text-align: left;
 }
-
