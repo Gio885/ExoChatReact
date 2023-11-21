@@ -11,3 +11,7 @@ export const LISTA_MESSAGGI_UTENTE_ID_PER_CHAT = (hostName) => 'http://' + hostN
 export const LISTA_MESSAGGI_PER_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/messaggioRest/listaMessaggiPerChat'
 //SENDMESSAGE
 export const SEND_MESSAGE = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/messaggioRest/insertMessage'
+//LISTA CONTATTI
+export const LISTA_CONTATTI = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/utenteRest/findAllUtente'
+//INSERT CHAT
+export const INSERT_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/chatRest/insertChat'

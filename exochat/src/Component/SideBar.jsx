@@ -1,6 +1,6 @@
 import React from 'react'
 import '../custom/SideBar.css'
-import { REGISTER_PAGE } from '../utility/Route'
+import { LISTA_CHAT_UTENTE, REGISTER_PAGE, RUBRICA } from '../utility/Route'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux';
 import { resetUtente } from '../store/slice/utenteSlice';
@@ -18,7 +18,7 @@ function SideBar() {
       <>
         <div className='sidebar'>
         {/* LISTA MESSAGGI */}
-        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-message fa-2x" style={{color: '#050505'}}></i></button>
+        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(LISTA_CHAT_UTENTE)}}><i className="fa-solid fa-message fa-2x" style={{color: '#050505'}}></i></button>
         <br />
          {/* LISTA VIDEOCHIAMATE */}
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-phone fa-2x" style={{color: "#0d0d0d"}}></i></button>
@@ -27,7 +27,7 @@ function SideBar() {
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-user fa-2x" style={{color: "#0d0d0d"}}></i></button>
         <br />
          {/* RUBRICA */}
-        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-address-book fa-2x" style={{color: "#0d0d0d"}}></i></button>
+        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(RUBRICA)}}><i className="fa-solid fa-address-book fa-2x" style={{color: "#0d0d0d"}}></i></button>
         <br />
         <div className='iconsBottom'>
          {/* IMPOSTAZIONI */}

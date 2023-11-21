@@ -1,5 +1,5 @@
 import axios from "axios";
-import { LOGIN_UTENTE, REGISTER_UTENTE } from "../utility/EndPoint";
+import { LISTA_CONTATTI, LOGIN_UTENTE, REGISTER_UTENTE } from "../utility/EndPoint";
 import { LISTA_CHAT_UTENTE, LOGIN_PAGE } from "../utility/Route";
 
 const hostName = window.location.hostname;
@@ -24,4 +24,13 @@ export function registerUtente(utente, history){
         console.error('Errore durante la registrazione:', error);
                
       });
+}
+
+//LISTA CONTATTI
+export function findAllUtente(setContatti){
+    return axios.get(LISTA_CONTATTI(hostName)).then((response)=>{
+        setContatti(response.data)
+    }).catch(error =>{
+        console.error('Errore nel caricamento della lista contatti: ',error);
+    })
 }
