@@ -28,7 +28,7 @@ export function sendMessage(messaggio){
 
 //INSERT CHAT
 export function insertChat(chat, dispatch,setChat,contatto){
-    axios.post(INSERT_CHAT(hostName),chat).then((response)=>{
+    return axios.post(INSERT_CHAT(hostName),chat).then((response)=>{
         dispatch(setChat(response.data))
     }).catch(error =>{
         console.error('Errore caricamento chat: ',error);
