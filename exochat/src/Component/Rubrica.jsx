@@ -31,7 +31,7 @@ function Rubrica() {
   return ( <>
 
       <div className='containerRubricaPage'>
-      <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'center',margin:'0 0 0 0',marginTop:'10px' }}><b>ELENCO CONTATTI</b></h1>
+      <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif',alignItems:'center', textAlign: 'left',margin:'0 0 0 0',marginTop:'21px',marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CONTATTI</b></h1>
       <div className='searchBar'>
             <input
               type='text'
@@ -39,8 +39,8 @@ function Rubrica() {
             />
             <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
       </div>
-      <div>
-      <h4 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'center',margin:'0 0 0 0' }}><i class="fa-solid fa-user-group"></i><b>NUOVO GRUPPO</b></h4>
+      <div style={{marginTop:'-20px',marginBottom:'15px',backgroundColor:'white',borderRadius:'15px',height:'40px',width:'250px',display:'flex',justifyContent:'center',alignItems:'center',position:'relative',left:'14%'}}>
+      <h3 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif'}}><i class="fa-solid fa-user-group"></i><b style={{marginLeft:'10px'}}>NUOVO GRUPPO</b></h3>
       </div>
       <table className='tableListaContatto'>
             <thead>
