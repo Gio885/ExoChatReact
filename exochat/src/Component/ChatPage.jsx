@@ -10,15 +10,34 @@ function ChatPage() {
   const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([])
   const chat = useSelector((state) => state.chat)
   const utente = useSelector((state) => state.utente)
-  const [messaggioDaInviare, setMessaggioDaInviare] = useState('')
+  const [destinatario, setDestinatario] = useState('')
+  const [contenutoMessaggio, setContenutoMessaggio] = useState('')
+  
 
   useEffect(() => {
 
     findAllMessageForChat(chat, setListaMessaggiDellaChat)
+    if(listaMessaggiDellaChat){
+      listaMessaggiDellaChat.map((messaggio) => {
+        (messaggio.destinatario.username !== utente.username) ? setDestinatario(messaggio.destinatario): setDestinatario(messaggio.mittente) 
+        return;
+      })}
 
-  }, [chat, setListaMessaggiDellaChat])
+  }, [chat, listaMessaggiDellaChat])
 
+ 
+  function inviaMessaggio(contenuto){
+    const messaggio = {
+      mittenteId: utente.idUtente,
+      dataOra: new Date(),
+      contenutoMessaggio: contenuto,
+      chatId: chat.idChat,
+      destinatarioId: destinatario.idUtente 
+    }
 
+    sendMessage(messaggio)
+  }
+  
   return (<>
 
     {chat.idChat && Object.keys(chat).length > 0 ? (<>
@@ -35,8 +54,11 @@ function ChatPage() {
                 }
                 style={{ width: '50px', height: '50px', borderRadius: '50%' }}
               />
-
-              <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>{(messaggio.destinatario.username !== utente.username) ? messaggio.destinatario.username : messaggio.mittente.username}</span>
+  
+  
+ 
+              <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}> {destinatario.username} </span>
+              
             </div>
             <div
               className={
@@ -64,9 +86,9 @@ function ChatPage() {
           <input
             type='text'
             placeholder='Scrivi un messaggio'
-            onChange={(e) => setMessaggioDaInviare(e.target.value)}
+            onChange={(e) => setContenutoMessaggio(e.target.value)}
           />
-          <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }} onClick={(e) => { sendMessage(messaggioDaInviare) }}><i class="fa-solid fa-paper-plane fa-2x"></i></button>
+          <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }} onClick={() => { inviaMessaggio(contenutoMessaggio) }}><i class="fa-solid fa-paper-plane fa-2x"></i></button>
 
         </div>
 

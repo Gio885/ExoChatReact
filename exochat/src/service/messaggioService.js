@@ -17,6 +17,7 @@ export function findAllMessageForUtenteForChat(utente, setListaMessaggiPerChat){
 
 //SENDMESSAGE
 export function sendMessage(messaggio){
+    console.log(messaggio)
     return axios.post(SEND_MESSAGE(hostName), messaggio).then((response) => {
         console.log(response.data)
     }).catch(error => {
