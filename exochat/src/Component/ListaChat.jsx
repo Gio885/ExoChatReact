@@ -10,6 +10,7 @@ function ListaChat() {
 
   const utente = useSelector((state) => state.utente)
   const [listaMessaggiPerChat, setListaMessaggiPerChat] = useState([])
+  const [destinatario, setDestinatario] = useState('')
   const history = useHistory('')
   const dispatch = useDispatch('')
 
@@ -17,8 +18,13 @@ function ListaChat() {
   useEffect(() => {
 
     findAllMessageForUtenteForChat(utente, setListaMessaggiPerChat)
-
-
+    if(listaMessaggiPerChat){
+      listaMessaggiPerChat.map((messaggio) => {
+        (messaggio.destinatario.username !== utente.username) ? setDestinatario(messaggio.destinatario): setDestinatario(messaggio.mittente) 
+        return;
+      })
+    }
+    
   }, [])
 
   function handleChatPage(chat) {
@@ -68,7 +74,7 @@ function ListaChat() {
                           fontSize: '20px',
                         }}
                       >
-                        <b>{messaggio.destinatario.username}</b>
+                        <b>{destinatario.username}</b>
                       </span>
                       <span
 
