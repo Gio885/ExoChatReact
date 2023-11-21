@@ -17,13 +17,9 @@ function ChatPage() {
   useEffect(() => {
 
     findAllMessageForChat(chat, setListaMessaggiDellaChat)
-    if(listaMessaggiDellaChat){
-      listaMessaggiDellaChat.map((messaggio) => {
-        (messaggio.destinatario.username !== utente.username) ? setDestinatario(messaggio.destinatario): setDestinatario(messaggio.mittente) 
-        return;
-      })}
+    
 
-  }, [chat, listaMessaggiDellaChat])
+  }, [chat])
 
  
   function inviaMessaggio(contenuto){
@@ -57,7 +53,7 @@ function ChatPage() {
   
   
  
-              <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}> {destinatario.username} </span>
+              <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}> {(messaggio.destinatarioId === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario.username} </span>
               
             </div>
             <div
