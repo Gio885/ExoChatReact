@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import '../custom/ListaChat.css'
 import { findChatForUtente } from '../service/messaggioService'
 import { formattaData } from '../utility/Utils'
-import { setChat } from '../store/slice/chatSlice';
+import { resetChat, setChat, setDestinatario } from '../store/slice/chatSlice';
 
 function ListaChat() {
   const utente = useSelector((state) => state.utente);
@@ -12,14 +12,14 @@ function ListaChat() {
 
   useEffect(() => {
     findChatForUtente(utente, setListaChat);
-    
-  }, [listaChat]);
+  });
 
   function handleChatPage(idChat,tipoChatId) {
     const chat ={
       idChat:idChat,
       tipoChatId:tipoChatId
     }
+    dispatch(resetChat());
     dispatch(setChat(chat));
   }
 
@@ -39,7 +39,7 @@ function ListaChat() {
             <table className='tableListaChat'>
               <thead>
                 {listaChat && listaChat.map((messaggio) => (
-                  <tr key={messaggio.idChat} onClick={() => handleChatPage(messaggio.idChat,messaggio.tipoChatId)}>
+                  <tr key={messaggio.idChat} onClick={() => {handleChatPage(messaggio.idChat,messaggio.tipoChatId); dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario))}}>
                     <th>
                       <div className="containerChat">
                         <img

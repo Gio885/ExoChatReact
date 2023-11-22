@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { LISTA_CHAT_UTENTE } from '../utility/Route';
 
 
-function Rubrica({setDestinatarioChat}) {
+function Rubrica() {
 
   const [contatti, setContatti] = useState();
   const utente = useSelector((state) => state.utente)
@@ -24,11 +24,12 @@ function Rubrica({setDestinatarioChat}) {
   }, [])
 
 
-  function iniziaChat() {
+  function iniziaChat(contatto) {
     const chat = {
       tipoChatId: 1
     }
-    insertChat(chat, dispatch, setChat);
+    
+    insertChat(chat, dispatch, setChat, contatto);
     history.push(LISTA_CHAT_UTENTE)
   
   }
@@ -39,7 +40,7 @@ function Rubrica({setDestinatarioChat}) {
     <div className='containerRubricaPage'>
       <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', alignItems: 'center', textAlign: 'left', margin: '0 0 0 0', marginTop: '21px', marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CONTATTI</b></h1>
       <div className='searchBar'>
-        <input
+        <input 
           type='text'
           placeholder='Cerca per nome...'
         />
@@ -59,7 +60,7 @@ function Rubrica({setDestinatarioChat}) {
                   <span className='spanContatto' style={{ display: 'block', textAlign: 'left', marginLeft: '60px', marginTop: '10px' }} >{contatto.username}</span>
                   <span className='spanContatto' style={{ display: 'block', textAlign: 'left', marginLeft: '60px' }}>{contatto.info} </span>
                   <span style={{ display: 'block', textAlign: 'right', marginLeft: '60px', marginTop: '-40px' }}>
-                    <button onClick={() => {iniziaChat(); setDestinatarioChat(contatto)}}   style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-message fa-2x" style={{ color: '#050505' }}></i></button>
+                    <button onClick={() => {iniziaChat(contatto)}}   style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-message fa-2x" style={{ color: '#050505' }}></i></button>
                     <button style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-video fa-2x" style={{ color: '#050505' }}></i></button>
                   </span>
                  

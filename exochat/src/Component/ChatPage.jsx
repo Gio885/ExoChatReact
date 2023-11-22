@@ -5,37 +5,27 @@ import { formattaData } from '../utility/Utils';
 import '../custom/ChatPage.css';
 import { sendMessage } from '../service/messaggioService';
 
-function ChatPage({ destinatarioChat, setDestinatarioChat }) {
+function ChatPage() {
   const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([]);
   const chat = useSelector((state) => state.chat);
   const utente = useSelector((state) => state.utente);
   const [destinatario, setDestinatario] = useState('');
   const [contenutoMessaggio, setContenutoMessaggio] = useState('');
   const chatContainerRef = useRef(null);
+  const [aggiornamentoForzato, setAggiornamentoForzato] = useState(false)
 
   useEffect(() => {
 
-    if (destinatarioChat && destinatarioChat !== undefined) {
-      setDestinatario(destinatarioChat);
-      setDestinatarioChat(null)
-      console.log('sono qui dentro')
-    }
-  }, [destinatarioChat]);
+    findAllMessageForChat(chat, setListaMessaggiDellaChat);
+   
+    
+  });
 
   useEffect(() => {
-    if (!destinatarioChat || destinatarioChat === undefined) {
-      findAllMessageForChat(chat, setListaMessaggiDellaChat)
-    }
-    console.log('useEffect chatpage')
-
-  }, [chat, listaMessaggiDellaChat,contenutoMessaggio])
-
-
-  useEffect(() => {
-
+    
     if (listaMessaggiDellaChat) {
       const messaggio = listaMessaggiDellaChat[listaMessaggiDellaChat.length - 1];
-
+     
       if (
         messaggio &&
         ((messaggio.destinatario.username !== utente.username &&
@@ -51,20 +41,27 @@ function ChatPage({ destinatarioChat, setDestinatarioChat }) {
       }
     }
 
-  }, [listaMessaggiDellaChat, utente, destinatario]);
+  }, [destinatario]);
 
   function inviaMessaggio(contenuto) {
-    const messaggio = {
-      mittenteId: utente.idUtente,
-      dataOra: new Date(),
-      contenutoMessaggio: contenuto,
-      chatId: chat.idChat,
-      destinatarioId: destinatario.idUtente,
-    };
 
-    sendMessage(messaggio);
-    setContenutoMessaggio('');
+    if(contenuto !== '' && contenuto !== undefined && contenuto){
+      const messaggio = {
+        mittenteId: utente.idUtente,
+        dataOra: new Date(),
+        contenutoMessaggio: contenuto,
+        chatId: chat.idChat,
+        destinatarioId: chat.destinatario.idUtente,
+      };
+      sendMessage(messaggio, setAggiornamentoForzato);
+      setContenutoMessaggio('');
+      
+    } else {
+      return;
+    }
+    
   }
+  
 
   return (
     <>
@@ -111,18 +108,18 @@ function ChatPage({ destinatarioChat, setDestinatarioChat }) {
                   </div>
                 </div>
               ))
-            ) : destinatario && destinatario !== undefined ? (<>
+            ) : chat.destinatario && chat.destinatario !== undefined ? (<>
               <div className='containerMessaggio'>
                 <div className='profiloContatto'>
                   <img
                     src={
-                      `data:image/png;base64,${destinatario.fotoConvertita}`
+                      `data:image/png;base64,${chat.destinatario.fotoConvertita}`
                     }
                     style={{ width: '50px', height: '50px', borderRadius: '50%' }}
                   />
                   <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                     {' '}
-                    {destinatario.username}{' '}
+                    {chat.destinatario.username}{' '}
                   </span>
                 </div>
 
@@ -137,7 +134,7 @@ function ChatPage({ destinatarioChat, setDestinatarioChat }) {
               <button
                 style={{ backgroundColor: 'transparent', border: '0px', marginBottom: '27px' }}
                 onClick={() => {
-                  inviaMessaggio(contenutoMessaggio);
+                  inviaMessaggio(contenutoMessaggio); 
                 }}
               >
                 <i class='fa-solid fa-paper-plane fa-2x'></i>
