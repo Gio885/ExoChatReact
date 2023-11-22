@@ -9,9 +9,9 @@ function CreateGruppo() {
   const [utenti, setUtenti] = useState([]);
   const [gruppo, setGruppo] = useState({
     nomeGruppo: '',
-    amministratoreGruppo: utente,
+    amministratoreGruppo: utente.idUtente,
     foto: null,
-    info: ''
+    infoGruppo: ''
   });
 
   const [utentiSelezionati, setUtentiSelezionati] = useState([]);
@@ -23,7 +23,7 @@ function CreateGruppo() {
   function creaUnGruppo() {
     if (utentiSelezionati.length > 0) {
       console.log(utentiSelezionati)
-      //createGruppo(gruppo, history, utentiSelezionati, setUtentiSelezionati);
+      createGruppo(gruppo, history, utentiSelezionati, setUtentiSelezionati);
     } else {
       console.log('Seleziona almeno un utente per creare il gruppo.');
     }
