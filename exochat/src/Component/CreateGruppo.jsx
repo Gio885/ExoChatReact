@@ -9,7 +9,7 @@ function CreateGruppo() {
   const [utenti, setUtenti] = useState([]);
   const [gruppo, setGruppo] = useState({
     nomeGruppo: '',
-    amministratoreGruppo: utente.idUtente,
+    amministratoreGruppo: utente,
     foto: null,
     infoGruppo: ''
   });

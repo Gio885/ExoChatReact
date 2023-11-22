@@ -8,7 +8,6 @@ import '../src/custom/App.css'
 import ListaChat from './Component/ListaChat';
 import ChatPage from './Component/ChatPage';
 import Rubrica from './Component/Rubrica';
-import { useState } from 'react';
 import CreateGruppo from './Component/CreateGruppo';
 
 function App() {
