@@ -29,7 +29,14 @@ function ProfiloPersonale() {
   };
 
   function salvaModifiche() {
-
+    if (
+      modifiche.username.trim() === '' ||
+      modifiche.email.trim() === '' ||
+      modifiche.password.trim() === ''
+    ) {
+      console.error('Compila tutti i campi obbligatori.');
+      return;
+    }
     updateUtente(utente, setUtente, dispatch, history)
     console.log('Modifiche salvate:', modifiche);
     setModifica(false);

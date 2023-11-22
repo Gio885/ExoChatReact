@@ -39,7 +39,8 @@ export function findAllUtente(utente, setContatti) {
 //CREATEGRUPPO
 export function createGruppo(gruppo, history, utentiSelezionati) {
   return axios.post(INSERT_GROUP(hostName), gruppo).then((response) => {
-    const gruppoId = response.data.gruppoId;
+    const gruppoId = response.data.idUtente;
+    console.log(response.data)
     console.log(gruppoId)
     const utentiDaInserire = utentiSelezionati.map((utenteId) => ({
       gruppoId: gruppoId,
