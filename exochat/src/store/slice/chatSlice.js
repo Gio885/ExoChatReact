@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialChat = {
-  destinatario: '',  // Aggiungi una chiave per destinatario nel tuo stato iniziale
+  destinatario: '',  
 };
 
 export const chatSlice = createSlice({
@@ -9,15 +9,18 @@ export const chatSlice = createSlice({
   initialState: initialChat,
   reducers: {
     setChat: (state, action) => {
-      return { ...state, ...action.payload };  // Restituisci un nuovo oggetto di stato con i nuovi valori
+      return { ...state, ...action.payload };  
     },
     setDestinatario: (state, action) => {
-      return { ...state, destinatario: action.payload };  // Aggiorna solo la proprietà destinatario
+      return { ...state, destinatario: action.payload };  
     },
-    resetChat: () => initialChat,  // Resetta lo stato al valore iniziale
+    resetChat: () => initialChat,  
   },
 });
 
-export const { setChat, setDestinatario, resetChat } = chatSlice.actions;
+export const { 
+  setChat, 
+  setDestinatario, 
+  resetChat } = chatSlice.actions;
 
 export default chatSlice.reducer;

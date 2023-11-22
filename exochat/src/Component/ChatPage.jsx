@@ -12,13 +12,12 @@ function ChatPage() {
   const [destinatario, setDestinatario] = useState('');
   const [contenutoMessaggio, setContenutoMessaggio] = useState('');
   const chatContainerRef = useRef(null);
-  const [aggiornamentoForzato, setAggiornamentoForzato] = useState(false)
+  
 
   useEffect(() => {
-
-    findAllMessageForChat(chat, setListaMessaggiDellaChat);
-   
-    
+    if(utente.idUtente){
+      findAllMessageForChat(chat, setListaMessaggiDellaChat);
+    }    
   });
 
   useEffect(() => {
@@ -41,7 +40,7 @@ function ChatPage() {
       }
     }
 
-  }, [destinatario]);
+  });
 
   function inviaMessaggio(contenuto) {
 
@@ -53,7 +52,7 @@ function ChatPage() {
         chatId: chat.idChat,
         destinatarioId: chat.destinatario.idUtente,
       };
-      sendMessage(messaggio, setAggiornamentoForzato);
+      sendMessage(messaggio);
       setContenutoMessaggio('');
       
     } else {

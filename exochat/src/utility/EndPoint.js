@@ -13,3 +13,7 @@ export const SEND_MESSAGE = (hostName) => 'http://' + hostName + ':8080/ExoChatW
 export const LISTA_CONTATTI = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/utenteRest/findAllChatNonIniziate'
 //INSERT CHAT
 export const INSERT_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/chatRest/insertChat'
+//INSERTGRUPPO
+export const INSERT_GROUP = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/gruppoRest/insertGruppo'
+//INSERTLISTAUTENTIGRUPPO
+export const INSERT_UTENTI_GRUPPO = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/gruppoUtenteRest/insertUtentiGruppo'

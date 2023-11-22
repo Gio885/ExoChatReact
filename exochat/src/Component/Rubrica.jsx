@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { insertChat } from '../service/messaggioService';
 import { setChat } from '../store/slice/chatSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { LISTA_CHAT_UTENTE } from '../utility/Route';
+import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT } from '../utility/Route';
 
 
 function Rubrica() {
@@ -34,6 +34,7 @@ function Rubrica() {
   
   }
 
+ 
 
   return (<>
 
@@ -46,7 +47,7 @@ function Rubrica() {
         />
         <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
       </div>
-      <div style={{ marginTop: '-20px', marginBottom: '15px', backgroundColor: 'white', borderRadius: '15px', height: '40px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', left: '14%' }}>
+      <div onClick={()=> {history.push(CREA_GRUPPO)}}  style={{ marginTop: '-20px', marginBottom: '15px', backgroundColor: 'white', borderRadius: '15px', height: '40px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', left: '14%' }}>
         <h3 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif' }}><i class="fa-solid fa-user-group"></i><b style={{ marginLeft: '10px' }}>NUOVO GRUPPO</b></h3>
       </div>
       <table className='tableListaContatto'>
@@ -61,7 +62,7 @@ function Rubrica() {
                   <span className='spanContatto' style={{ display: 'block', textAlign: 'left', marginLeft: '60px' }}>{contatto.info} </span>
                   <span style={{ display: 'block', textAlign: 'right', marginLeft: '60px', marginTop: '-40px' }}>
                     <button onClick={() => {iniziaChat(contatto)}}   style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-message fa-2x" style={{ color: '#050505' }}></i></button>
-                    <button style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-video fa-2x" style={{ color: '#050505' }}></i></button>
+                    <button onClick={() => {}} style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-video fa-2x" style={{ color: '#050505' }}></i></button>
                   </span>
                  
                 </div>

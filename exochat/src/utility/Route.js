@@ -8,3 +8,5 @@ export const LISTA_CHAT_UTENTE = "/listaChatUtente";
 export const CHAT_PAGE = "/listaChatUtente/chatPage";
 //RUBRICA
 export const RUBRICA = "/rubricaPage";
+//CREAGRUPPO
+export const CREA_GRUPPO ='/creaGruppo';

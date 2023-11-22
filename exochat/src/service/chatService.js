@@ -6,10 +6,8 @@ const hostName = window.location.hostname;
 //LISTAMESSAGGIPERCHAT
 export function findAllMessageForChat(chat, setListaMessaggiDellaChat){
     return axios.post(LISTA_MESSAGGI_PER_CHAT(hostName), chat).then((response)=> {
-        setListaMessaggiDellaChat(response.data)
-       
+        setListaMessaggiDellaChat(response.data)       
     }).catch(error => {
-        console.error('Errore:', error);
-               
+        console.error('Errore:', error);               
       });
 }
