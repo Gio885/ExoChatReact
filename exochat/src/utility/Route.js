@@ -10,3 +10,5 @@ export const CHAT_PAGE = "/listaChatUtente/chatPage";
 export const RUBRICA = "/rubricaPage";
 //CREAGRUPPO
 export const CREA_GRUPPO ='/creaGruppo';
+//AREAPERSONALE
+export const AREA_PERSONALE = '/areaPersonale';

@@ -17,3 +17,7 @@ export const INSERT_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWe
 export const INSERT_GROUP = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/gruppoRest/insertGruppo'
 //INSERTLISTAUTENTIGRUPPO
 export const INSERT_UTENTI_GRUPPO = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/gruppoUtenteRest/insertUtentiGruppo'
+//FINDALLVIDEOCHAT
+export const FIND_ALL_VIDEO_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/chiamataRest/findAllChiamate'
+//UPDATEUTENTE
+export const UPDATE_UTENTE = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/utenteRest/updateUtente'

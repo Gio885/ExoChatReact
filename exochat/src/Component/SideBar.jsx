@@ -1,6 +1,6 @@
 import React from 'react'
 import '../custom/SideBar.css'
-import { LISTA_CHAT_UTENTE, REGISTER_PAGE, RUBRICA } from '../utility/Route'
+import { AREA_PERSONALE, LISTA_CHAT_UTENTE, REGISTER_PAGE, RUBRICA } from '../utility/Route'
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min'
 import { useDispatch, useSelector } from 'react-redux';
 import { resetUtente } from '../store/slice/utenteSlice';
@@ -24,7 +24,7 @@ function SideBar() {
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-video fa-2x" style={{color: "#0d0d0d"}}></i></button>
         <br />
          {/* PROFILO PERSONALE */}
-        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(REGISTER_PAGE)}}><i className="fa-solid fa-user fa-2x" style={{color: "#0d0d0d"}}></i></button>
+        <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(AREA_PERSONALE)}}><i className="fa-solid fa-user fa-2x" style={{color: "#0d0d0d"}}></i></button>
         <br />
          {/* RUBRICA */}
         <button style={{backgroundColor: "transparent", border: '0px'}} onClick={()=> {history.push(RUBRICA)}}><i className="fa-solid fa-address-book fa-2x" style={{color: "#0d0d0d"}}></i></button>

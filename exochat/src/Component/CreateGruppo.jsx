@@ -9,7 +9,7 @@ function CreateGruppo() {
   const [utenti, setUtenti] = useState([]);
   const [gruppo, setGruppo] = useState({
     nomeGruppo: '',
-    amministratoreGruppo: utente,
+    amministratoreGruppo: utente.idUtente,
     foto: null,
     infoGruppo: ''
   });
@@ -49,8 +49,8 @@ function CreateGruppo() {
           type='email'
           placeholder='Inserisci le info'
           style={{ textAlign: 'center' }}
-          value={gruppo.info}
-          onChange={(e) => setGruppo({ ...gruppo, info: e.target.value })}
+          value={gruppo.infoGruppo}
+          onChange={(e) => setGruppo({ ...gruppo, infoGruppo: e.target.value })}
         />
       </label>
       <br />
