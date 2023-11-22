@@ -27,8 +27,8 @@ export function registerUtente(utente, history){
 }
 
 //LISTA CONTATTI
-export function findAllUtente(setContatti){
-    return axios.get(LISTA_CONTATTI(hostName)).then((response)=>{
+export function findAllUtente(utente,setContatti){
+    return axios.post(LISTA_CONTATTI(hostName),utente).then((response)=>{
         setContatti(response.data)
         console.log(response.data)
     }).catch(error =>{

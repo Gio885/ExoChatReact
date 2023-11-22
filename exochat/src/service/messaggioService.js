@@ -7,6 +7,7 @@ const hostName = window.location.hostname;
 export function findChatForUtente(utente, setListaMessaggiPerChat) {
     return axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente).then((response) => {
         setListaMessaggiPerChat(response.data)
+        console.log(response.data)
      
     }).catch(error => {
         console.error('Errore:', error);

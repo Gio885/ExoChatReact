@@ -28,7 +28,7 @@ function ChatPage({ destinatarioChat, setDestinatarioChat }) {
     }
     console.log('useEffect chatpage')
 
-  }, [chat, listaMessaggiDellaChat])
+  }, [chat, listaMessaggiDellaChat,contenutoMessaggio])
 
 
   useEffect(() => {

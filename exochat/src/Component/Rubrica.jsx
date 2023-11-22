@@ -19,7 +19,7 @@ function Rubrica({setDestinatarioChat}) {
   useEffect(() => {
 
     //PASSARE L'UTENTE IN MANIERA TALE DA VISUALIZZARE SOLO I CONTATTI CON CUI NON SI HA UNA CHAT
-    findAllUtente(setContatti)
+    findAllUtente(utente,setContatti)
 
   }, [])
 

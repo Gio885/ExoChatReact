@@ -15,7 +15,11 @@ function ListaChat() {
     
   }, [listaChat]);
 
-  function handleChatPage(chat) {
+  function handleChatPage(idChat,tipoChatId) {
+    const chat ={
+      idChat:idChat,
+      tipoChatId:tipoChatId
+    }
     dispatch(setChat(chat));
   }
 
@@ -35,7 +39,7 @@ function ListaChat() {
             <table className='tableListaChat'>
               <thead>
                 {listaChat && listaChat.map((messaggio) => (
-                  <tr key={messaggio.chat.idChat} onClick={() => handleChatPage(messaggio.chat)}>
+                  <tr key={messaggio.idChat} onClick={() => handleChatPage(messaggio.idChat,messaggio.tipoChatId)}>
                     <th>
                       <div className="containerChat">
                         <img
@@ -55,7 +59,7 @@ function ListaChat() {
                             fontSize: '20px',
                           }}
                         >
-                          <b>{(messaggio.destinatarioId === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario.username}</b>
+                          <b>{(messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario.username}</b>
                         </span>
                         <span
                           style={{
