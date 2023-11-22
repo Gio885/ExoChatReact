@@ -23,7 +23,7 @@ function CreateGruppo() {
   function creaUnGruppo() {
     if (utentiSelezionati.length > 0) {
       console.log(utentiSelezionati)
-      createGruppo(gruppo, history, utentiSelezionati, setUtentiSelezionati);
+      createGruppo(gruppo, history, utentiSelezionati, setUtentiSelezionati, utente);
     } else {
       console.log('Seleziona almeno un utente per creare il gruppo.');
     }
@@ -76,8 +76,7 @@ function CreateGruppo() {
                   <input
                     type='checkbox'
                     checked={utentiSelezionati.includes(utenteLista.idUtente)}
-                    onChange={() => {
-                      // Aggiorna la lista degli utenti selezionati
+                    onChange={() => {                      
                       const updatedUtentiSelezionati = utentiSelezionati.includes(utenteLista.idUtente)
                         ? utentiSelezionati.filter((id) => id !== utenteLista.idUtente)
                         : [...utentiSelezionati, utenteLista.idUtente];
