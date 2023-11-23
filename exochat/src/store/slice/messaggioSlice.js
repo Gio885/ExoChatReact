@@ -19,8 +19,8 @@ const initialMessage = {
 });
 
 export const {
-    setMessage,
-    resetMessage
+    setMessaggio,
+    resetMessaggio
 } = messaggioSlice.actions
 
 export default messaggioSlice.reducer

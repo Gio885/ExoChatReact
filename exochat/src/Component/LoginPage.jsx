@@ -3,8 +3,9 @@ import { loginUtente } from '../service/utenteService';
 import { REGISTER_PAGE } from '../utility/Route';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import '../custom/LoginPage.css'
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { setUtente } from '../store/slice/utenteSlice';
+import { setMessaggio} from '../store/slice/messaggioSlice';
 
  function LoginPage() {
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
@@ -17,6 +18,7 @@ import { setUtente } from '../store/slice/utenteSlice';
     })
     const history = useHistory('')
     const dispatch = useDispatch('')
+    const messaggio = useSelector((state) => state.messaggio)
 
     function login() {
 
@@ -47,7 +49,7 @@ import { setUtente } from '../store/slice/utenteSlice';
             password: password,
         };
 
-        loginUtente(utente, dispatch, setUtente, history)
+        loginUtente(utente, dispatch,setMessaggio, setUtente, history)
 
     };
 
@@ -71,6 +73,8 @@ import { setUtente } from '../store/slice/utenteSlice';
             <button type="button" className='buttonForLoginPage' onClick={() => login()}>Accedi</button>
             <br />
             <button type="button" className='buttonForLoginPage' onClick={()=> {history.push(REGISTER_PAGE)}}>Registrati</button>
+            <br/>
+            {(messaggio) ? messaggio.data :'' }
             </div>
 
 
