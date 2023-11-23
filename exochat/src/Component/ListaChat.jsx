@@ -52,7 +52,7 @@ function ListaChat() {
                           src={(messaggio.tipoChatId === 1) ? (messaggio.destinatario.username !== utente.username)
                             ? `data:image/png;base64,${messaggio.destinatario.fotoConvertita}`
                             : `data:image/png;base64,${messaggio.mittente.fotoConvertita}`
-                            : `data:image/png;base64,${messaggio.fotoConvertita}`}
+                            : `data:image/png;base64,${messaggio.gruppo.fotoConvertita}`}
                           style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '5px 0 0 -290px' }}
                         />
                         <span
