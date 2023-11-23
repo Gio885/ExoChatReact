@@ -5,9 +5,14 @@ import { setDestinatario } from "../store/slice/chatSlice";
 const hostName = window.location.hostname;
 
 //LISTAMESSAGGIUTENTE
-export function findChatForUtente(utente, setListaMessaggiPerChat) {
+export function findChatForUtente(utente, setListaChat, listaChat) {
     return axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente).then((response) => {
-        setListaMessaggiPerChat(response.data)    
+        setListaChat(response.data.data)  
+        console.log(response)
+        console.log(response.data.data)  
+        console.log(response.data.data)  
+        console.log(listaChat)
+
     }).catch(error => {
         console.error('Errore:', error);
     });

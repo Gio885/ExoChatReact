@@ -11,13 +11,19 @@ function ListaChat() {
   const dispatch = useDispatch('');
 
   useEffect(() => {
-    findChatForUtente(utente, setListaChat);
-  });
+    console.log(listaChat)
+    if (utente.idUtente) {
+      findChatForUtente(utente, setListaChat, listaChat);
+      console.log(listaChat)
+      console.log(listaChat)
+    }
+  }, [utente.idUtente]);
 
-  function handleChatPage(idChat,tipoChatId) {
-    const chat ={
-      idChat:idChat,
-      tipoChatId:tipoChatId
+
+  function handleChatPage(idChat, tipoChatId) {
+    const chat = {
+      idChat: idChat,
+      tipoChatId: tipoChatId
     }
     dispatch(resetChat());
     dispatch(setChat(chat));
@@ -39,7 +45,7 @@ function ListaChat() {
             <table className='tableListaChat'>
               <thead>
                 {listaChat && listaChat.map((messaggio) => (
-                  <tr key={messaggio.idChat} onClick={() => {handleChatPage(messaggio.idChat,messaggio.tipoChatId); dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario))}}>
+                  <tr key={messaggio.idChat} onClick={() => { handleChatPage(messaggio.idChat, messaggio.tipoChatId); dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario)) }}>
                     <th>
                       <div className="containerChat">
                         <img
@@ -59,7 +65,21 @@ function ListaChat() {
                             fontSize: '20px',
                           }}
                         >
-                          <b>{(messaggio.tipoChatId === 1) ? (messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario : messaggio.gruppo.username}</b>
+
+                          <b>
+                            {
+                              // Se è una chat individuale
+                              messaggio.tipoChatId === 1
+                                ? (
+                                  // Se il destinatario è l'utente corrente, mostra il nome del mittente, altrimenti mostra il nome del destinatario
+                                  (messaggio.destinatario.idUtente === utente.idUtente)
+                                    ? messaggio.mittente.username
+                                    : messaggio.destinatario.username
+                                )
+                                // Se è una chat di gruppo, mostra il nome del gruppo
+                                : messaggio.gruppo.username
+                            }
+                          </b>
                         </span>
                         <span
                           style={{
