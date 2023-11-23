@@ -1,6 +1,5 @@
-
 import { BrowserRouter, Route, Switch } from 'react-router-dom';
-import { AREA_PERSONALE, CREA_GRUPPO, LISTA_CHAT_UTENTE, LOGIN_PAGE, REGISTER_PAGE, RUBRICA } from './utility/Route';
+import { AREA_PERSONALE, CREA_GRUPPO, LISTA_CHAT_UTENTE, LOGIN_PAGE, REGISTER_PAGE, RUBRICA, VIDEO_CHAT_PAGE } from './utility/Route';
 import LoginPage from './Component/LoginPage';
 import RegisterPage from './Component/RegisterPage';
 import SideBar from './Component/SideBar';
@@ -10,10 +9,9 @@ import ChatPage from './Component/ChatPage';
 import Rubrica from './Component/Rubrica';
 import CreateGruppo from './Component/CreateGruppo';
 import ProfiloPersonale from './Component/ProfiloPersonale';
+import VideoChatPage from './Component/VideoChatPage';
 
-function App() {
-
- 
+function App() { 
 
   return (
     <>
@@ -27,6 +25,7 @@ function App() {
           <Route exact path={RUBRICA} component={()=> <Rubrica />}/>
           <Route exact path={CREA_GRUPPO} component={()=> <CreateGruppo/>}/>
           <Route exact path={AREA_PERSONALE} component={()=> <ProfiloPersonale/>}/>
+          {/* <Route exact path={VIDEO_CHAT_PAGE} component={()=> <VideoChatPage/>}/> */}
         </Switch>
 
         <ChatPage />

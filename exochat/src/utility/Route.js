@@ -12,3 +12,5 @@ export const RUBRICA = "/rubricaPage";
 export const CREA_GRUPPO ='/creaGruppo';
 //AREAPERSONALE
 export const AREA_PERSONALE = '/areaPersonale';
+//VIDEOCHATPAGE 
+export const  VIDEO_CHAT_PAGE = '/videoChatPage';
