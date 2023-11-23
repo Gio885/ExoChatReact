@@ -47,10 +47,7 @@ export function createGruppo(gruppo, history, utentiSelezionati, utente) {
       utenteId: utenteId,
     }));
 
-    utentiDaInserire.push({
-      gruppoId: gruppoId,
-      utenteId: utente.idUtente,
-    })
+   
     console.log(utentiDaInserire)
 
     return axios.post(INSERT_UTENTI_GRUPPO(hostName), utentiDaInserire)

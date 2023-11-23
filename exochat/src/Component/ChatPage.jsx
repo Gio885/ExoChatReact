@@ -46,12 +46,13 @@ function ChatPage() {
 
     if(contenuto !== '' && contenuto !== undefined && contenuto){
       const messaggio = {
-        mittenteId: utente.idUtente,
+        mittente: utente,
         dataOra: new Date(),
         contenutoMessaggio: contenuto,
-        chatId: chat.idChat,
-        destinatarioId: chat.destinatario.idUtente,
+        chat: chat,
+        destinatario: chat.destinatario,
       };
+      
       sendMessage(messaggio);
       setContenutoMessaggio('');
       
