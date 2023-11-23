@@ -4,18 +4,39 @@ import { setUtente } from '../store/slice/utenteSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { updateUtente } from '../service/utenteService';
 
+
+
 function ProfiloPersonale() {
+
   const utente = useSelector((state) => state.utente);
   const [modifica, setModifica] = useState(false);
   const [modifiche, setModifiche] = useState({
+    idUtente: utente.idUtente,
     username: utente.username,
     email: utente.email,
-    password: '', // Aggiungi lo stato per la password se è necessario
-    foto: utente.foto,
+    password: utente.password, 
+    fotoConvertita: utente.fotoConvertita,
     info: utente.info,
   });
+
+
   const dispatch = useDispatch()
   const history = useHistory()
+
+  const file = new File([modifiche.fotoConvertita], 'fileName', { type: 'image/jpeg' });    
+
+  function convertToBase64(file, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const base64String = e.target.result.split(',')[1];
+      callback(base64String);
+    };
+    
+    reader.readAsDataURL(file);
+  }
+
+ 
 
   const abilitaModifica = () => {
     setModifica(true);
@@ -28,6 +49,19 @@ function ProfiloPersonale() {
     }));
   };
 
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+  
+    if (selectedFile) {
+      convertToBase64(selectedFile, (base64String) => {
+        setModifiche((prevModifiche) => ({
+          ...prevModifiche,
+          fotoConvertita: base64String,
+        }));
+      });
+    }
+  };
+
   function salvaModifiche() {
     if (
       modifiche.username.trim() === '' ||
@@ -37,19 +71,21 @@ function ProfiloPersonale() {
       console.error('Compila tutti i campi obbligatori.');
       return;
     }
-    updateUtente(utente, setUtente, dispatch, history)
+    
+    updateUtente(modifiche, setUtente, dispatch, history)
     console.log('Modifiche salvate:', modifiche);
     setModifica(false);
   };
 
+  
   return (
     <>
-     
+
 
       <div className='containerTableLista'>
-      <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>AREA PERSONALE</b></h1>
-      <br />
-      <br />
+        <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>AREA PERSONALE</b></h1>
+        <br />
+        <br />
         <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
           <b>Username:</b>
           {modifica ? (
@@ -99,11 +135,11 @@ function ProfiloPersonale() {
           {modifica ? (
             <input
               type='file'
-              value={modifiche.foto}
-              onChange={(e) => gestisciModifiche('foto', e.target.value)}
+
+              onChange={handleFileChange}
             />
           ) : (
-            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center' }} />
+            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center',  borderWidth: '2px solid white'}} />
           )}
         </label>
         <br />
@@ -112,7 +148,7 @@ function ProfiloPersonale() {
           <b>Info:</b>
           <br />
           <br />
-          {modifica ? (<textarea value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
+          {modifica ? (<textarea type='text' value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
           ) : (
             <span>{(utente.info ? utente.info : 'NESSUNA INFO')}</span>
           )}

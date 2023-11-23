@@ -79,8 +79,9 @@ export function createGruppo(gruppo, history, utentiSelezionati, utente) {
 }
 
 //UPDATEUTENTE
-export function updateUtente(utente, setUtente, dispatch, history) {
-  return axios.post(UPDATE_UTENTE(hostName), utente).then((response) => {
+export function updateUtente(modifiche, setUtente, dispatch, history) {
+  return axios.post(UPDATE_UTENTE(hostName), modifiche).then((response) => {
+    console.log(modifiche)
     dispatch(setUtente(response.data))
     history.push(LISTA_CHAT_UTENTE)
   }).catch((error) => {
