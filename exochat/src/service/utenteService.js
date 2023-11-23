@@ -5,12 +5,13 @@ import { LISTA_CHAT_UTENTE, LOGIN_PAGE, RUBRICA } from "../utility/Route";
 const hostName = window.location.hostname;
 
 //LOGIN
-export function loginUtente(utente, dispatch, setUtente, history) {
+export function loginUtente(utente, dispatch,setMessaggio, setUtente, history) {
   return axios.post(LOGIN_UTENTE(hostName), utente).then((response) => {
     dispatch(setUtente(response.data))
     history.push(LISTA_CHAT_UTENTE)
-    console.log(response.data)
   }).catch(error => {
+    dispatch(setMessaggio({data:error.response.data}))
+    console.log(error)
     console.error('Errore durante il login:', error);
 
   });
