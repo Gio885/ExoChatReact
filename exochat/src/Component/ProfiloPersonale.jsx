@@ -103,7 +103,7 @@ function ProfiloPersonale() {
               onChange={(e) => gestisciModifiche('foto', e.target.value)}
             />
           ) : (
-            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '50px', height: '50px', borderRadius: '50%', textAlign: 'center' }} />
+            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center' }} />
           )}
         </label>
         <br />

@@ -15,6 +15,7 @@ function ChatPage() {
   
 
   useEffect(() => {
+    
     if(utente.idUtente){
       findAllMessageForChat(chat, setListaMessaggiDellaChat);
     }    
@@ -44,7 +45,7 @@ function ChatPage() {
 
   function inviaMessaggio(contenuto) {
 
-    if(contenuto !== '' && contenuto !== undefined && contenuto){
+    if(contenuto && contenuto !== '' && contenuto !== undefined){
       const messaggio = {
         mittente: utente,
         dataOra: new Date(),

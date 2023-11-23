@@ -43,10 +43,10 @@ function ListaChat() {
                     <th>
                       <div className="containerChat">
                         <img
-                          src={(messaggio.destinatario.username !== utente.username)
+                          src={(messaggio.tipoChatId === 1) ? (messaggio.destinatario.username !== utente.username)
                             ? `data:image/png;base64,${messaggio.destinatario.fotoConvertita}`
                             : `data:image/png;base64,${messaggio.mittente.fotoConvertita}`
-                          }
+                            : `data:image/png;base64,${messaggio.fotoConvertita}`}
                           style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '5px 0 0 -290px' }}
                         />
                         <span
@@ -59,7 +59,7 @@ function ListaChat() {
                             fontSize: '20px',
                           }}
                         >
-                          <b>{(messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario.username}</b>
+                          <b>{(messaggio.tipoChatId === 1) ? (messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente.username : messaggio.destinatario : messaggio.gruppo.username}</b>
                         </span>
                         <span
                           style={{

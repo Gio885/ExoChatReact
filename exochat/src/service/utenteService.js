@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INSERT_GROUP, INSERT_UTENTI_GRUPPO, LISTA_CONTATTI, LOGIN_UTENTE, REGISTER_UTENTE, UPDATE_UTENTE } from "../utility/EndPoint";
+import { INSERT_GROUP, INSERT_UTENTI_GRUPPO, LISTA_CONTATTI, LISTA_CONTATTI_PER_GRUPPO, LOGIN_UTENTE, REGISTER_UTENTE, UPDATE_UTENTE } from "../utility/EndPoint";
 import { LISTA_CHAT_UTENTE, LOGIN_PAGE, RUBRICA } from "../utility/Route";
 
 const hostName = window.location.hostname;
@@ -30,6 +30,16 @@ export function registerUtente(utente, history) {
 export function findAllUtente(utente, setContatti) {
   return axios.post(LISTA_CONTATTI(hostName), utente).then((response) => {
     setContatti(response.data)
+    console.log(response.data)
+  }).catch(error => {
+    console.error('Errore nel caricamento della lista contatti: ', error);
+  })
+}
+
+//LISTA CONTATTI PER GRUPPO
+export function findAllContattiPerGruppo(setUtenti) {
+  return axios.get(LISTA_CONTATTI_PER_GRUPPO(hostName)).then((response) => {
+    setUtenti(response.data)
     console.log(response.data)
   }).catch(error => {
     console.error('Errore nel caricamento della lista contatti: ', error);

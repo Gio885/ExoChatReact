@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { insertChat } from '../service/messaggioService';
 import { setChat } from '../store/slice/chatSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
-import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT } from '../utility/Route';
+import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT, VIDEO_CHAT_PAGE } from '../utility/Route';
 
 
 function Rubrica() {
@@ -62,7 +62,7 @@ function Rubrica() {
                   <span className='spanContatto' style={{ display: 'block', textAlign: 'left', marginLeft: '60px' }}>{contatto.info} </span>
                   <span style={{ display: 'block', textAlign: 'right', marginLeft: '60px', marginTop: '-40px' }}>
                     <button onClick={() => {iniziaChat(contatto)}}   style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-message fa-2x" style={{ color: '#050505' }}></i></button>
-                    <button onClick={() => {}} style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-video fa-2x" style={{ color: '#050505' }}></i></button>
+                    <button onClick={() => {history.push(VIDEO_CHAT_PAGE)}} style={{ backgroundColor: "transparent", border: '0px' }}><i className="fa-solid fa-video fa-2x" style={{ color: '#050505' }}></i></button>
                   </span>
                  
                 </div>

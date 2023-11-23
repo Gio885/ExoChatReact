@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
-import { createGruppo, findAllUtente } from '../service/utenteService';
+import { createGruppo, findAllContattiPerGruppo, findAllUtente } from '../service/utenteService';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 
 function CreateGruppo() {
@@ -17,7 +17,7 @@ function CreateGruppo() {
   const [utentiSelezionati, setUtentiSelezionati] = useState([]);
 
   useEffect(() => {
-    findAllUtente(utente, setUtenti);
+    findAllContattiPerGruppo(setUtenti);
   }, []);
 
   function creaUnGruppo() {
