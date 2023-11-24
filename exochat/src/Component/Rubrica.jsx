@@ -3,7 +3,7 @@ import '../custom/Rubrica.css'
 import { findAllUtente } from '../service/utenteService';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertChat } from '../service/messaggioService';
-import { setChat } from '../store/slice/chatSlice';
+import { resetChat, setChat, setDestinatario } from '../store/slice/chatSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT, VIDEO_CHAT_PAGE } from '../utility/Route';
 
@@ -25,12 +25,12 @@ function Rubrica() {
 
 
   function iniziaChat(contatto) {
-    const chat = {
-      tipoChatId: 1
-    }
-    
-    insertChat(chat, dispatch, setChat, contatto);
+   
+    //insertChat(chat, dispatch, setChat, contatto);
     history.push(LISTA_CHAT_UTENTE)
+    console.log(contatto)
+    dispatch(resetChat())
+    dispatch(setDestinatario(contatto))
   
   }
 

@@ -29,8 +29,8 @@ export function sendMessage(messaggio) {
 }
 
 //INSERT CHAT
-export function insertChat(chat, dispatch, setChat, contatto) {
-    return axios.post(INSERT_CHAT(hostName), chat).then((response) => {
+export function insertChat(chatDaInserire, dispatch, setChat, contatto) {
+    return axios.post(INSERT_CHAT(hostName), chatDaInserire).then((response) => {
         dispatch(setChat(response.data))
         dispatch(setDestinatario(contatto))      
     }).catch(error => {

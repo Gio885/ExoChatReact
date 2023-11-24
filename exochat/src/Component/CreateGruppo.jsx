@@ -2,6 +2,7 @@ import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
 import { createGruppo, findAllContattiPerGruppo, findAllUtente } from '../service/utenteService';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
+import '../custom/CreateGruppo.css'
 
 function CreateGruppo() {
   const utente = useSelector((state) => state.utente);
@@ -14,23 +15,84 @@ function CreateGruppo() {
     infoGruppo: ''
   });
 
+  const [alertNomeGruppo, setAlertNomeGruppo] = useState('')
+  const [alertInfoGruppo, setAlertInfoGruppo] = useState('')
+  const [alertUtentiGruppo, setAlertUtentiGruppo] = useState('')
   const [utentiSelezionati, setUtentiSelezionati] = useState([]);
 
   useEffect(() => {
     findAllContattiPerGruppo(setUtenti);
   }, []);
 
+
+  function convertToBase64(file, callback) {
+    const reader = new FileReader();
+
+    reader.onload = function (e) {
+      const base64String = e.target.result.split(',')[1];
+      callback(base64String);
+    };
+
+    reader.readAsDataURL(file);
+  }
+
+  const handleFileChange = (event) => {
+    const selectedFile = event.target.files[0];
+
+    if (selectedFile) {
+      convertToBase64(selectedFile, (base64String) => {
+        setGruppo((prevGruppo) => ({
+          ...prevGruppo,
+          foto: base64String,
+        }));
+      });
+    }
+  };
+
+
   function creaUnGruppo() {
-    if (utentiSelezionati.length > 0) {
-      console.log(utentiSelezionati)
-      createGruppo(gruppo, history, utentiSelezionati, setUtentiSelezionati, utente);
+
+    let checkNomeGruppo = false
+    let checkInfoGruppo = false
+    let checkUtentiGruppo = false
+
+    console.log('sono dentro creaUngruppo')
+    console.log(gruppo)
+    if (!gruppo.nomeGruppo || gruppo.nomeGruppo === '') {
+      setAlertNomeGruppo('Inserisci un nome gruppo')
+      checkNomeGruppo = false
+      console.log('sono dentro L IF')
     } else {
-      console.log('Seleziona almeno un utente per creare il gruppo.');
+      console.log('sono dentro ELSE')
+      checkNomeGruppo = true
+      setAlertNomeGruppo('')
+    }
+    if (!gruppo.infoGruppo || gruppo.infoGruppo === '') {
+      setAlertInfoGruppo('Inserisci un info gruppo')
+      checkInfoGruppo = false
+    } else {
+      checkInfoGruppo = true
+      setAlertInfoGruppo('')
+    }
+    if (utentiSelezionati.length === 0) {
+      setAlertUtentiGruppo('Seleziona almeno un utente per creare il gruppo')
+      checkUtentiGruppo = false
+    } else {
+      checkUtentiGruppo = true
+      setAlertUtentiGruppo('')
+    }
+    if (checkInfoGruppo && checkNomeGruppo && checkUtentiGruppo) {
+      console.log(utentiSelezionati)
+      createGruppo(gruppo, history, utentiSelezionati, utente);
+    } else {
+
     }
   }
 
   return (
-    <div className='containerTableLista'>
+    <div className='containerCreateGruppo'>
+      <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>NUOVO GRUPPO</b></h1>
+      <br /><br />
       <label style={{ color: ' black', fontFamily: 'sans-serif' }}>
         <b>Nome Gruppo:</b>
         <input
@@ -38,21 +100,23 @@ function CreateGruppo() {
           placeholder='Inserisci nome Gruppo'
           style={{ textAlign: 'center' }}
           value={gruppo.nomeGruppo}
-          onChange={(e) => setGruppo({ ...gruppo, nomeGruppo: e.target.value })}
+          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, nomeGruppo: e.target.value }))}
         />
       </label>
+      {(alertNomeGruppo && <div style={{ color: 'red' }}> {alertNomeGruppo} </div>)}
       <br />
       <br />
       <label style={{ color: ' black', fontFamily: 'sans-serif' }}>
         <b>Info Gruppo:</b>
         <input
           type='email'
-          placeholder='Inserisci le info'
+          placeholder='Inserisci le info Gruppo'
           style={{ textAlign: 'center' }}
           value={gruppo.infoGruppo}
-          onChange={(e) => setGruppo({ ...gruppo, infoGruppo: e.target.value })}
+          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, infoGruppo: e.target.value }))}
         />
       </label>
+      {(alertInfoGruppo && <div style={{ color: 'red' }}> {alertInfoGruppo} </div>)}
       <br />
       <br />
       <label style={{ color: ' black', fontFamily: 'sans-serif' }}>
@@ -60,7 +124,7 @@ function CreateGruppo() {
         <input
           type='file'
           style={{ textAlign: 'center' }}
-          onChange={(e) => setGruppo({ ...gruppo, foto: e.target.files[0] })}
+          onChange={handleFileChange}
         />
       </label>
       <br />
@@ -76,7 +140,7 @@ function CreateGruppo() {
                   <input
                     type='checkbox'
                     checked={utentiSelezionati.includes(utenteLista.idUtente)}
-                    onChange={() => {                      
+                    onChange={() => {
                       const updatedUtentiSelezionati = utentiSelezionati.includes(utenteLista.idUtente)
                         ? utentiSelezionati.filter((id) => id !== utenteLista.idUtente)
                         : [...utentiSelezionati, utenteLista.idUtente];
@@ -90,6 +154,7 @@ function CreateGruppo() {
             ))}
         </ul>
       </label>
+      {(alertUtentiGruppo && <div style={{ color: 'red' }}> {alertUtentiGruppo} </div>)}
       <div>
         <button className='buttonForRegisterPage' type='button' onClick={() => creaUnGruppo()}>
           Crea Gruppo

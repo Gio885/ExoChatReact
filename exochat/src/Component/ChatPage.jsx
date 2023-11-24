@@ -1,9 +1,10 @@
 import React, { useEffect, useState, useRef } from 'react';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { findAllMessageForChat } from '../service/chatService';
 import { formattaData } from '../utility/Utils';
 import '../custom/ChatPage.css';
-import { sendMessage } from '../service/messaggioService';
+import { insertChat, sendMessage } from '../service/messaggioService';
+import { setChat, setTipoChatId } from '../store/slice/chatSlice';
 
 function ChatPage() {
   const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([]);
@@ -12,13 +13,18 @@ function ChatPage() {
   const [destinatario, setDestinatario] = useState('');
   const [contenutoMessaggio, setContenutoMessaggio] = useState('');
   const chatContainerRef = useRef(null);
+  const dispatch = useDispatch()
   
 
   useEffect(() => {
     
-    if(utente.idUtente){
+    if(utente.idUtente && chat.idChat && chat.tipoChatId){
       findAllMessageForChat(chat, setListaMessaggiDellaChat);
-    }    
+      console.log(chat)
+      console.log('primo useEffect')
+    } else {
+      setListaMessaggiDellaChat(null)
+    }  
   });
 
   useEffect(() => {
@@ -45,15 +51,23 @@ function ChatPage() {
 
   function inviaMessaggio(contenuto) {
 
-    if(contenuto && contenuto !== '' && contenuto !== undefined){
+    if(contenuto && contenuto !== '' && contenuto !== undefined){   
+      let tipo = (chat.destinatario.amministratore ? 2 : 1)
+      dispatch(setTipoChatId(tipo))      
+      
+      insertChat(chat, dispatch, setChat, chat.destinatario); 
+      const chatPerBack = {
+        idChat: chat.idChat,
+        tipoChatId : chat.tipoChatId
+      }
       const messaggio = {
         mittente: utente,
         dataOra: new Date(),
         contenutoMessaggio: contenuto,
-        chat: chat,
+        chat: chatPerBack,
         destinatario: chat.destinatario,
-      };
-      
+      };      
+      console.log(messaggio)
       sendMessage(messaggio);
       setContenutoMessaggio('');
       
@@ -66,7 +80,7 @@ function ChatPage() {
 
   return (
     <>
-      {chat.idChat && Object.keys(chat).length > 0 ? (
+      {chat.destinatario && Object.keys(chat.destinatario).length > 0 ? (
         <>
           <div ref={chatContainerRef} className='containerChatPage'>
             {listaMessaggiDellaChat ? (

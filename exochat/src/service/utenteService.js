@@ -5,12 +5,12 @@ import { LISTA_CHAT_UTENTE, LOGIN_PAGE, RUBRICA } from "../utility/Route";
 const hostName = window.location.hostname;
 
 //LOGIN
-export function loginUtente(utente, dispatch,setMessaggio, setUtente, history) {
+export function loginUtente(utente, dispatch, setMessaggio, setUtente, history) {
   return axios.post(LOGIN_UTENTE(hostName), utente).then((response) => {
     dispatch(setUtente(response.data))
     history.push(LISTA_CHAT_UTENTE)
   }).catch(error => {
-    dispatch(setMessaggio({data:error.response.data}))
+    dispatch(setMessaggio({ data: error.response.data }))
     console.log(error)
     console.error('Errore durante il login:', error);
 
@@ -53,18 +53,23 @@ export function createGruppo(gruppo, history, utentiSelezionati, utente) {
     const gruppoId = response.data.idUtente;
     console.log(response.data)
     console.log(gruppoId)
-    const utentiDaInserire = utentiSelezionati.map((utenteId) => ({
+    console.log(utente)
+    
+    let utentiDaInserire = utentiSelezionati.map((utenteId) => ({
       gruppoId: gruppoId,
       utenteId: utenteId,
     }));
-
-   
+    console.log('prima stampa')
     console.log(utentiDaInserire)
-
+    utentiDaInserire = [
+      ...utentiDaInserire,
+      { gruppoId: gruppoId, utenteId: utente.idUtente }
+    ];
+    console.log('seconda stampa')
+    console.log(utentiDaInserire)
     return axios.post(INSERT_UTENTI_GRUPPO(hostName), utentiDaInserire)
       .then((response) => {
         console.log(response.data);
-
       })
       .catch((error) => {
         console.error('Errore nel caricamento della lista contatti: ', error);

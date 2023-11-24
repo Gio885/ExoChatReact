@@ -18,7 +18,7 @@ function ProfiloPersonale() {
     fotoConvertita: utente.fotoConvertita,
     info: utente.info,
   });
-
+  const [alertMessage, setAlertMessage] = useState('')
 
   const dispatch = useDispatch()
   const history = useHistory()
@@ -68,7 +68,7 @@ function ProfiloPersonale() {
       modifiche.email.trim() === '' ||
       modifiche.password.trim() === ''
     ) {
-      console.error('Compila tutti i campi obbligatori.');
+      setAlertMessage('Compila tutti i campi obbligatori.');
       return;
     }
     
@@ -148,7 +148,7 @@ function ProfiloPersonale() {
           <b>Info:</b>
           <br />
           <br />
-          {modifica ? (<textarea type='text' value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
+          {modifica ? (<textarea type='text'  style={{ width: '250px', height: '100px'}} value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
           ) : (
             <span>{(utente.info ? utente.info : 'NESSUNA INFO')}</span>
           )}
@@ -171,8 +171,12 @@ function ProfiloPersonale() {
             >
               Modifica
             </button>
+
+           
           )}
         </div>
+        <br /><br />
+        {(alertMessage) && <div style={{color : 'red'}}> {alertMessage} </div>}
       </div>
     </>
   );
