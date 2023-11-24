@@ -11,21 +11,25 @@ function ListaChat() {
   const dispatch = useDispatch('');
 
   useEffect(() => {
-    console.log(listaChat)
+    
     if (utente.idUtente) {
-      findChatForUtente(utente, setListaChat, listaChat);
-      console.log(listaChat)
-      console.log(listaChat)
+      findChatForUtente(utente, setListaChat, listaChat);      
     }
   });
 
 
-  function handleChatPage(idChat, tipoChatId) {
+  function handleChatPage(messaggio) {
     const chat = {
-      idChat: idChat,
-      tipoChatId: tipoChatId
+      idChat: messaggio.idChat,
+      tipoChatId: messaggio.tipoChatId
     }
-    dispatch(resetChat());
+    if(messaggio.destinatario !== undefined){
+      dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario))
+    } else {
+      dispatch(setDestinatario(messaggio.gruppo))
+    }
+    
+    
     dispatch(setChat(chat));
   }
 
@@ -45,7 +49,7 @@ function ListaChat() {
             <table className='tableListaChat'>
               <thead>
                 {listaChat && listaChat.map((messaggio) => (
-                  <tr key={messaggio.idChat} onClick={() => { handleChatPage(messaggio.idChat, messaggio.tipoChatId); dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario)) }}>
+                  <tr key={messaggio.idChat} onClick={() => { handleChatPage(messaggio) }}>
                     <th>
                       <div className="containerChat">
                         <img
