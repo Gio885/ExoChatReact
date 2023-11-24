@@ -17,7 +17,7 @@ function ListaChat() {
       console.log(listaChat)
       console.log(listaChat)
     }
-  }, [utente.idUtente]);
+  });
 
 
   function handleChatPage(idChat, tipoChatId) {

@@ -4,13 +4,12 @@ import { findAllMessageForChat } from '../service/chatService';
 import { formattaData } from '../utility/Utils';
 import '../custom/ChatPage.css';
 import { insertChat, sendMessage } from '../service/messaggioService';
-import { setChat, setTipoChatId } from '../store/slice/chatSlice';
+import { setChat, setTipoChatId, setDestinatario } from '../store/slice/chatSlice';
 
 function ChatPage() {
   const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([]);
   const chat = useSelector((state) => state.chat);
   const utente = useSelector((state) => state.utente);
-  const [destinatario, setDestinatario] = useState('');
   const [contenutoMessaggio, setContenutoMessaggio] = useState('');
   const chatContainerRef = useRef(null);
   const dispatch = useDispatch()
@@ -18,32 +17,25 @@ function ChatPage() {
 
   useEffect(() => {
     
-    if(utente.idUtente && chat.idChat && chat.tipoChatId){
+    if(utente.idUtente && chat.idChat){
       findAllMessageForChat(chat, setListaMessaggiDellaChat);
-      console.log(chat)
-      console.log('primo useEffect')
-    } else {
-      setListaMessaggiDellaChat(null)
-    }  
+      // console.log(chat)
+      // console.log('primo useEffect')
+    } 
   });
 
-  useEffect(() => {
-    
-    if (listaMessaggiDellaChat) {
+  useEffect(() => {    
+    if (listaMessaggiDellaChat && Object.keys(listaMessaggiDellaChat).length > 0) {
       const messaggio = listaMessaggiDellaChat[listaMessaggiDellaChat.length - 1];
      
-      if (
-        messaggio &&
-        ((messaggio.destinatario.username !== utente.username &&
-          messaggio.destinatario.idUtente !== destinatario.idUtente) ||
-          (messaggio.mittente.username !== utente.username &&
-            messaggio.mittente.idUtente !== destinatario.idUtente))
-      ) {
+      if ( messaggio && !messaggio.gruppo && ((messaggio.destinatario.username !== utente.username) || (messaggio.mittente.username !== utente.username))) {
         setDestinatario(
           messaggio.destinatario.username !== utente.username
             ? messaggio.destinatario
             : messaggio.mittente
         );
+      } else if(messaggio.gruppo) {
+          setDestinatario(messaggio.gruppo.username)
       }
     }
 
@@ -97,7 +89,7 @@ function ChatPage() {
                     />
                     <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                       {' '}
-                      {destinatario.username}{' '}
+                      {chat.destinatario.username}{' '}
                     </span>
                   </div>
                   <div

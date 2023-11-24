@@ -9,10 +9,10 @@ function CreateGruppo() {
   const history = useHistory();
   const [utenti, setUtenti] = useState([]);
   const [gruppo, setGruppo] = useState({
-    nomeGruppo: '',
-    amministratoreGruppo: utente.idUtente,
-    foto: null,
-    infoGruppo: ''
+    username: '',
+    amministratoreGruppo: utente,
+    fotoConvertita: null,
+    info: ''
   });
 
   const [alertNomeGruppo, setAlertNomeGruppo] = useState('')
@@ -43,7 +43,7 @@ function CreateGruppo() {
       convertToBase64(selectedFile, (base64String) => {
         setGruppo((prevGruppo) => ({
           ...prevGruppo,
-          foto: base64String,
+          fotoConvertita: base64String,
         }));
       });
     }
@@ -58,7 +58,7 @@ function CreateGruppo() {
 
     console.log('sono dentro creaUngruppo')
     console.log(gruppo)
-    if (!gruppo.nomeGruppo || gruppo.nomeGruppo === '') {
+    if (!gruppo.username || gruppo.username === '') {
       setAlertNomeGruppo('Inserisci un nome gruppo')
       checkNomeGruppo = false
       console.log('sono dentro L IF')
@@ -67,7 +67,7 @@ function CreateGruppo() {
       checkNomeGruppo = true
       setAlertNomeGruppo('')
     }
-    if (!gruppo.infoGruppo || gruppo.infoGruppo === '') {
+    if (!gruppo.info || gruppo.info === '') {
       setAlertInfoGruppo('Inserisci un info gruppo')
       checkInfoGruppo = false
     } else {
@@ -100,7 +100,7 @@ function CreateGruppo() {
           placeholder='Inserisci nome Gruppo'
           style={{ textAlign: 'center' }}
           value={gruppo.nomeGruppo}
-          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, nomeGruppo: e.target.value }))}
+          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, username: e.target.value }))}
         />
       </label>
       {(alertNomeGruppo && <div style={{ color: 'red' }}> {alertNomeGruppo} </div>)}
@@ -113,7 +113,7 @@ function CreateGruppo() {
           placeholder='Inserisci le info Gruppo'
           style={{ textAlign: 'center' }}
           value={gruppo.infoGruppo}
-          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, infoGruppo: e.target.value }))}
+          onChange={(e) => setGruppo((prevGruppo) => ({ ...prevGruppo, info: e.target.value }))}
         />
       </label>
       {(alertInfoGruppo && <div style={{ color: 'red' }}> {alertInfoGruppo} </div>)}

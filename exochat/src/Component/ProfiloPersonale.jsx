@@ -8,6 +8,7 @@ import { updateUtente } from '../service/utenteService';
 
 function ProfiloPersonale() {
 
+  const validUsername = /^[a-zA-Z0-9_]{3,20}$/;
   const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
   const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
   const utente = useSelector((state) => state.utente);
@@ -21,28 +22,24 @@ function ProfiloPersonale() {
     info: utente.info,
   });
   const [alertMessage, setAlertMessage] = useState('')
+  const [alertUsername, setAlertUsername] = useState('')
   const [alertEmail, setAlertEmail] = useState('')
   const [alertPassword, setAlertPassword] = useState('')
-
   const dispatch = useDispatch()
   const history = useHistory()
-
   const file = new File([modifiche.fotoConvertita], 'fileName', { type: 'image/jpeg' });
 
   function convertToBase64(file, callback) {
     const reader = new FileReader();
-
     reader.onload = function (e) {
       const base64String = e.target.result.split(',')[1];
       callback(base64String);
     };
-
     reader.readAsDataURL(file);
   }
 
 
-
-  const abilitaModifica = () => {
+  function abilitaModifica() {
     setModifica(true);
   };
 
@@ -53,7 +50,7 @@ function ProfiloPersonale() {
     }));
   };
 
-  const handleFileChange = (event) => {
+  function handleFileChange(event)  {
     const selectedFile = event.target.files[0];
 
     if (selectedFile) {
@@ -67,6 +64,11 @@ function ProfiloPersonale() {
   };
 
   function salvaModifiche() {
+
+    let checkUsername = false;
+    let checkMail = false
+    let checkPassword = false;
+    
     if (
       modifiche.username.trim() === '' ||
       modifiche.email.trim() === '' ||
@@ -74,17 +76,39 @@ function ProfiloPersonale() {
     ) {
       setAlertMessage('Compila tutti i campi obbligatori.');
       return;
-    } else if(!validEmail.test(modifiche.email)){
+    } 
+    console.log(modifiche.username.length)
+    if(!validUsername.test(modifiche.username) || modifiche.username.length < 4 || modifiche.username === ''){
+      setAlertUsername('Inserisci un username valido')
+      checkUsername = false
+  } else {
+      setAlertUsername('')
+      checkUsername = true
+  }
+    
+    if(!validEmail.test(modifiche.email) ||  modifiche.email === ''){
         setAlertEmail('Inserisci una mail valida')
-        return;
-    } else if(!validPassword.test(modifiche.password)){
-      setAlertPassword('Inserisci una password valida')
-      return;
+        checkMail = false
+    } else {
+        setAlertEmail('')
+        checkMail = true
     }
-
-    updateUtente(modifiche, setUtente, dispatch, history)
-    console.log('Modifiche salvate:', modifiche);
-    setModifica(false);
+    
+    if(!validPassword.test(modifiche.password) || modifiche.password === ''){
+      setAlertPassword('Inserisci una password valida')
+      checkPassword = false
+    } else {
+      setAlertPassword('')
+      checkPassword = true
+    }
+    if(checkUsername && checkMail && checkPassword){
+      updateUtente(modifiche, setUtente, dispatch, history)
+      console.log('Modifiche salvate:', modifiche);
+      setModifica(false);
+    } else {
+      return
+    }
+   
   };
 
 
@@ -109,6 +133,7 @@ function ProfiloPersonale() {
           )}
         </label>
         <br />
+        {(alertUsername) && <div style={{color: 'red'}}> {alertUsername} </div>}
         <br />
         <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
           <b>Email:</b>
@@ -148,7 +173,7 @@ function ProfiloPersonale() {
             <input
               type='file'
 
-              onChange={handleFileChange}
+              onChange={(e) => handleFileChange(e)}
             />
           ) : (
             <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center', borderWidth: '2px solid white' }} />
@@ -171,7 +196,7 @@ function ProfiloPersonale() {
             <button
               className='buttonForRegisterPage'
               type='button'
-              onClick={salvaModifiche}
+              onClick={() => salvaModifiche()}
             >
               Salva Modifiche
             </button>
@@ -179,7 +204,7 @@ function ProfiloPersonale() {
             <button
               className='buttonForRegisterPage'
               type='button'
-              onClick={abilitaModifica}
+              onClick={() => abilitaModifica()}
             >
               Modifica
             </button>
