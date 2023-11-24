@@ -1,0 +1,17 @@
+.containerCreateGruppo{
+    width: 350px;
+    text-align: center;
+    background-color: #eecc8c;
+    color: white;
+    border-left: 1px solid black;
+    border-right: 1px solid black;
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 100px;
+}
+
+input[type="checkbox"] {
+    display:list-item;
+    margin-bottom: -10px;
+}
