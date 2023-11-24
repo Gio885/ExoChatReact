@@ -1,5 +1,5 @@
 import axios from "axios";
-import { INSERT_GROUP, INSERT_UTENTI_GRUPPO, LISTA_CONTATTI, LISTA_CONTATTI_PER_GRUPPO, LOGIN_UTENTE, REGISTER_UTENTE, UPDATE_UTENTE } from "../utility/EndPoint";
+import { INSERT_GROUP, INSERT_UTENTI_GRUPPO, LISTA_CONTATTI, LISTA_CONTATTI_PER_GRUPPO, LISTA_GRUPPI_CHAT_NON_INIZIATA, LOGIN_UTENTE, REGISTER_UTENTE, UPDATE_UTENTE } from "../utility/EndPoint";
 import { LISTA_CHAT_UTENTE, LOGIN_PAGE, RUBRICA } from "../utility/Route";
 
 const hostName = window.location.hostname;
@@ -27,13 +27,22 @@ export function registerUtente(utente, history) {
   });
 }
 
-//LISTA CONTATTI
+//LISTA CONTATTI CON CUI NON SI HA UNA CHAT
 export function findAllUtente(utente, setContatti) {
   return axios.post(LISTA_CONTATTI(hostName), utente).then((response) => {
     setContatti(response.data)
     console.log(response.data)
   }).catch(error => {
     console.error('Errore nel caricamento della lista contatti: ', error);
+  })
+}
+//LISTA GRUPPI CON CUI NON SI HA UNA CHAT MA IL GRUPPO E STATO CREATO
+export function findAllGruppi(utente,setGruppi){
+  return axios.post(LISTA_GRUPPI_CHAT_NON_INIZIATA(hostName),utente).then((response) => {
+    setGruppi(response.data)
+    console.log(response.data)
+  }).catch(error =>{
+    console.error('Errore nel caricamento della lista gruppi: ', error);
   })
 }
 
