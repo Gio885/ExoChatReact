@@ -8,22 +8,26 @@ import { updateUtente } from '../service/utenteService';
 
 function ProfiloPersonale() {
 
+  const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
+  const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
   const utente = useSelector((state) => state.utente);
   const [modifica, setModifica] = useState(false);
   const [modifiche, setModifiche] = useState({
     idUtente: utente.idUtente,
     username: utente.username,
     email: utente.email,
-    password: utente.password, 
+    password: utente.password,
     fotoConvertita: utente.fotoConvertita,
     info: utente.info,
   });
   const [alertMessage, setAlertMessage] = useState('')
+  const [alertEmail, setAlertEmail] = useState('')
+  const [alertPassword, setAlertPassword] = useState('')
 
   const dispatch = useDispatch()
   const history = useHistory()
 
-  const file = new File([modifiche.fotoConvertita], 'fileName', { type: 'image/jpeg' });    
+  const file = new File([modifiche.fotoConvertita], 'fileName', { type: 'image/jpeg' });
 
   function convertToBase64(file, callback) {
     const reader = new FileReader();
@@ -32,11 +36,11 @@ function ProfiloPersonale() {
       const base64String = e.target.result.split(',')[1];
       callback(base64String);
     };
-    
+
     reader.readAsDataURL(file);
   }
 
- 
+
 
   const abilitaModifica = () => {
     setModifica(true);
@@ -51,7 +55,7 @@ function ProfiloPersonale() {
 
   const handleFileChange = (event) => {
     const selectedFile = event.target.files[0];
-  
+
     if (selectedFile) {
       convertToBase64(selectedFile, (base64String) => {
         setModifiche((prevModifiche) => ({
@@ -70,14 +74,20 @@ function ProfiloPersonale() {
     ) {
       setAlertMessage('Compila tutti i campi obbligatori.');
       return;
+    } else if(!validEmail.test(modifiche.email)){
+        setAlertEmail('Inserisci una mail valida')
+        return;
+    } else if(!validPassword.test(modifiche.password)){
+      setAlertPassword('Inserisci una password valida')
+      return;
     }
-    
+
     updateUtente(modifiche, setUtente, dispatch, history)
     console.log('Modifiche salvate:', modifiche);
     setModifica(false);
   };
 
-  
+
   return (
     <>
 
@@ -113,6 +123,7 @@ function ProfiloPersonale() {
           )}
         </label>
         <br />
+        {(alertEmail) && <div style={{color: 'red'}}> {alertEmail} </div>}
         <br />
         <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
           <b>Password:</b>
@@ -127,6 +138,7 @@ function ProfiloPersonale() {
           )}
         </label>
         <br />
+        {(alertPassword) && <div style={{color: 'red'}}> {alertPassword} </div>}
         <br />
         <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
           <b>Foto:</b>
@@ -139,7 +151,7 @@ function ProfiloPersonale() {
               onChange={handleFileChange}
             />
           ) : (
-            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center',  borderWidth: '2px solid white'}} />
+            <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '150px', height: '150px', borderRadius: '50%', textAlign: 'center', borderWidth: '2px solid white' }} />
           )}
         </label>
         <br />
@@ -148,7 +160,7 @@ function ProfiloPersonale() {
           <b>Info:</b>
           <br />
           <br />
-          {modifica ? (<textarea type='text'  style={{ width: '250px', height: '100px'}} value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
+          {modifica ? (<textarea type='text' style={{ width: '250px', height: '100px' }} value={modifiche.info} onChange={(e) => gestisciModifiche('info', e.target.value)} />
           ) : (
             <span>{(utente.info ? utente.info : 'NESSUNA INFO')}</span>
           )}
@@ -172,11 +184,11 @@ function ProfiloPersonale() {
               Modifica
             </button>
 
-           
+
           )}
         </div>
         <br /><br />
-        {(alertMessage) && <div style={{color : 'red'}}> {alertMessage} </div>}
+        {(alertMessage) && <div style={{ color: 'red' }}> {alertMessage} </div>}
       </div>
     </>
   );
