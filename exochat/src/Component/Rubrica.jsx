@@ -3,7 +3,7 @@ import '../custom/Rubrica.css'
 import { findAllGruppi, findAllUtente } from '../service/utenteService';
 import { useDispatch, useSelector } from 'react-redux';
 import { insertChat } from '../service/messaggioService';
-import { resetChat, setChat, setDestinatario } from '../store/slice/chatSlice';
+import { resetChat, setChat, setDestinatario, setTipoChatId } from '../store/slice/chatSlice';
 import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT, VIDEO_CHAT_PAGE } from '../utility/Route';
 
@@ -34,6 +34,11 @@ function Rubrica() {
     console.log(contatto)
     dispatch(resetChat())
     dispatch(setDestinatario(contatto))
+    if(contatto.amministratoreGruppo){
+      dispatch(setTipoChatId(2))
+    } else {
+      dispatch(setTipoChatId(1))
+    }
   
   }
 

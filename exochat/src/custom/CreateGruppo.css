@@ -9,7 +9,9 @@
     top: 0;
     bottom: 0;
     left: 100px;
+    overflow-y: auto;
 }
+.containerCreateGruppo::-webkit-scrollbar { display: none; }
 
 input[type="checkbox"] {
     display:list-item;

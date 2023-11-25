@@ -11,6 +11,7 @@ function ChatPage() {
   const chat = useSelector((state) => state.chat);
   const utente = useSelector((state) => state.utente);
   const [contenutoMessaggio, setContenutoMessaggio] = useState('');
+  const [chatAppoggio, setChatAppoggio] = useState()
   const chatContainerRef = useRef(null);
   const dispatch = useDispatch()
 
@@ -18,80 +19,62 @@ function ChatPage() {
   useEffect(() => {
 
     if (utente.idUtente && chat.idChat) {
+
       findAllMessageForChat(chat, setListaMessaggiDellaChat);
-      //console.log(listaMessaggiDellaChat)
-      // console.log(chat)
-      // console.log('primo useEffect')
+    } else {
+      setListaMessaggiDellaChat([])
     }
-  });
-
-  useEffect(() => {
-    if (listaMessaggiDellaChat && Object.keys(listaMessaggiDellaChat).length > 0) {
-      const messaggio = listaMessaggiDellaChat[listaMessaggiDellaChat.length - 1];
-
-      if (messaggio && !messaggio.gruppo && ((messaggio.destinatario.username !== utente.username) || (messaggio.mittente.username !== utente.username))) {
-        setDestinatario(
-          messaggio.destinatario.username !== utente.username
-            ? messaggio.destinatario
-            : messaggio.mittente
-        );
-      } else if (messaggio.gruppo) {
-        setDestinatario(messaggio.gruppo.username)
-      }
-    }
-
+    
   });
 
   function inviaMessaggio(contenuto) {
 
     if (contenuto && contenuto !== '' && contenuto !== undefined) {
-      let tipo = (chat.destinatario.amministratoreGruppo ? 2 : 1)
-      dispatch(setTipoChatId(tipo))
-      if(!chat.idChat){
-        insertChat(chat, dispatch, setChat, chat.destinatario)
+      if (!chat.idChat) {
+        insertChat(chat, dispatch, setChatAppoggio)
+        dispatch(setChat(chatAppoggio))        
       }
-      ;
-      const chatPerBack = {
-        idChat: chat.idChat,
-        tipoChatId: chat.tipoChatId
-      }
-      if (chat.destinatario.amministratoreGruppo) {
-        console.log('dentro primo if')
-        
-        const gruppoDaInviare = {
-          amministratore : chat.destinatario.amministratoreGrupppo,
-          nomeGruppo : chat.destinatario.username,
-          infoGruppo: chat.destinatario.info,
-          idGruppo : chat.destinatario.idUtente,
-          foto : chat.destinatario.fotoConvertita
-        }
-        const messaggio = {
-          mittente: utente,
-          dataOra: new Date(),
-          contenutoMessaggio: contenuto,
-          chat: chatPerBack,
-          gruppo: gruppoDaInviare
-        };
-        console.log(messaggio)
-        sendMessage(messaggio);
-        setContenutoMessaggio('');
-      } else if (!chat.destinatario.amministratoreGruppo) {
-        console.log('secondo if')
-        const messaggio = {
-          mittente: utente,
-          dataOra: new Date(),
-          contenutoMessaggio: contenuto,
-          chat: chatPerBack,
-          destinatario: chat.destinatario
-        };
-        console.log(messaggio)
-        sendMessage(messaggio);
-        setContenutoMessaggio('');
-
+      if (chatAppoggio.idChat) {
+        inviaMessaggioSequenziale(contenuto, chatAppoggio)
       }
 
     } else {
       return;
+    }
+
+  }
+
+  function inviaMessaggioSequenziale(contenuto, chatAppoggio) {
+    if (chat.destinatario.amministratoreGruppo) {
+
+      const gruppoDaInviare = {
+        amministratore: chat.destinatario.amministratoreGrupppo,
+        nomeGruppo: chat.destinatario.username,
+        infoGruppo: chat.destinatario.info,
+        idGruppo: chat.destinatario.idUtente,
+        foto: chat.destinatario.fotoConvertita
+      }
+      const messaggio = {
+        mittente: utente,
+        dataOra: new Date(),
+        contenutoMessaggio: contenuto,
+        chat: chatAppoggio,
+        gruppo: gruppoDaInviare
+      };
+      sendMessage(messaggio);
+      setContenutoMessaggio('');
+    } else if (!chat.destinatario.amministratoreGruppo) {
+
+      const messaggio = {
+        mittente: utente,
+        dataOra: new Date(),
+        contenutoMessaggio: contenuto,
+        chat: chatAppoggio,
+        destinatario: chat.destinatario
+      };
+      sendMessage(messaggio);
+      setContenutoMessaggio('');
+
     }
 
   }
@@ -106,15 +89,12 @@ function ChatPage() {
               listaMessaggiDellaChat.map((messaggio) => (
                 <div key={messaggio.idMessaggio} className='containerMessaggio'>
                   <div className='profiloContatto'>
-                    {console.log(listaMessaggiDellaChat)}
-                    {console.log('primissimo')}
                     <img
                       src={`data:image/png;base64,${chat.destinatario.fotoConvertita}`}
                       style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                     <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                       {' '}
                       {chat.destinatario.username + 'popop'}{' '}
-                      {console.log('primo')}
                     </span>
                   </div>
                   <div className={messaggio.mittente.idUtente === utente.idUtente ? 'messaggio-mittente' : 'messaggio-destinatario'} >
@@ -124,7 +104,8 @@ function ChatPage() {
                       style={{
                         textAlign: 'right',
                         justifyContent: 'right',
-                        marginLeft: '110px',
+                        display: 'flex',
+                        marginLeft: '60px',
                         fontSize: '12px',
                         color: 'gray',
                       }}
@@ -136,19 +117,16 @@ function ChatPage() {
               ))
             )}
 
-{(listaMessaggiDellaChat && chat.destinatario.amministratoreGruppo !== undefined && Object.keys(listaMessaggiDellaChat).length > 0) && (
+            {(listaMessaggiDellaChat && chat.destinatario.amministratoreGruppo !== undefined && Object.keys(listaMessaggiDellaChat).length > 0) && (
               listaMessaggiDellaChat.map((messaggio) => (
                 <div key={messaggio.idMessaggio} className='containerMessaggio'>
                   <div className='profiloContatto'>
-                    {console.log(listaMessaggiDellaChat)}
-                    {console.log('primissimo')}
                     <img
                       src={`data:image/png;base64,${chat.destinatario.fotoConvertita}`}
                       style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
                     <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                       {' '}
                       {chat.destinatario.username + 'popop'}{' '}
-                      {console.log('primo')}
                     </span>
                   </div>
                   <div className={messaggio.mittente.idUtente === utente.idUtente ? 'messaggio-mittente' : 'messaggio-destinatario'} >
@@ -173,7 +151,7 @@ function ChatPage() {
 
 
 
-            {/* {(chat.destinatario && chat.destinatario !== undefined) && (<>
+            {(chat.destinatario && chat.destinatario !== undefined && Object.keys(listaMessaggiDellaChat).length === 0) && (<>
               <div className='containerMessaggio'>
                 <div className='profiloContatto'>
                   <img
@@ -182,62 +160,27 @@ function ChatPage() {
                   <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                     {' '}
                     {chat.destinatario.username + 'ioioi'}{' '}
-                    {console.log('secondo')}
+
                   </span>
 
-                  {listaMessaggiDellaChat && chat.destinatario.ammistratoreGruppo ? <>
 
-                    {listaMessaggiDellaChat.map((messaggio) => (
-                      <div key={messaggio.idMessaggio} className='containerMessaggio'>
-                        <div className='profiloContatto'>
-                          <img
-                            src={
 
-                              `data:image/png;base64,${messaggio.gruppo.fotoConvertita}`
 
-                            }
-                            style={{ width: '50px', height: '50px', borderRadius: '50%' }}
-                          />
-                          <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
-                            {' '}
-                            {chat.gruppo.username + 'hjbhbi'}{' '}
-                            {console.log('terzo')}
-                          </span>
-                        </div>
-                        <div
-                          className={
-                            messaggio.mittente.idUtente === utente.idUtente
-                              ? 'messaggio-mittente'
-                              : 'messaggio-destinatario'
-                          }
-                        >
-                          <span>{messaggio.contenutoMessaggio}</span>
-                          <br />
-                          <span
-                            style={{
-                              textAlign: 'right',
-                              justifyContent: 'right',
-                              marginLeft: '110px',
-                              fontSize: '12px',
-                              color: 'gray',
-                            }}
-                          >
-                            {formattaData(messaggio.dataOra)}
-                          </span>
-                        </div>
-                      </div>
-                    ))}
-                  </> :
 
-                    <></>}
+
                 </div>
+
+
+
+
+
 
 
 
               </div></>)}
 
 
-            {(listaMessaggiDellaChat && chat.destinatario.ammistratoreGruppo) && <>
+            {/* {(listaMessaggiDellaChat && chat.destinatario.ammistratoreGruppo) && <>
               {listaMessaggiDellaChat.map((messaggio) => (
                 <div key={messaggio.idMessaggio} className='containerMessaggio'>
                   <div className='profiloContatto'>
@@ -289,7 +232,7 @@ function ChatPage() {
               <button
                 style={{ backgroundColor: 'transparent', border: '0px', marginBottom: '27px' }}
                 onClick={() => {
-                  inviaMessaggio(contenutoMessaggio);
+                  inviaMessaggio(contenutoMessaggio)
                 }}
               >
                 <i class='fa-solid fa-paper-plane fa-2x'></i>

@@ -24,9 +24,8 @@ import { setMessaggio} from '../store/slice/messaggioSlice';
 
         let checkEmail = false;
         let checkPassword = false;
-
         if (!validEmail.test(email) || email === '') {
-            setErrorMessage({ errorEmail: "Inserire email valida" })
+            setErrorMessage((prevErrorMessage) => ({ ...prevErrorMessage,  errorEmail: "Inserire email valida" }))
             checkEmail = false;
         } else {
             checkEmail = true;
@@ -34,7 +33,7 @@ import { setMessaggio} from '../store/slice/messaggioSlice';
         }
 
         if (!validPassword.test(password) || password === '') {
-            setErrorMessage({ errorPassword: "Inserire una password valida" })
+            setErrorMessage((prevErrorMessage) => ({ ...prevErrorMessage,  errorPassword: "Inserire password valida" }))
             checkPassword = false;
         } else {
             checkPassword = true;
@@ -57,24 +56,27 @@ import { setMessaggio} from '../store/slice/messaggioSlice';
         <>
             <h1 style={{color: ' #eecc8c', fontFamily: 'Fonseca, sans-serif'}}><b>BENVENUTO IN EXOCHAT</b></h1>
             <div className='containerLogin'>
+            {(messaggio) && <><div style={{color: 'red'}}> {messaggio.data} </div>  <br /></> }
+           
             <label style={{color: ' black', fontFamily: 'sans-serif'}}>
                 <b>Email:</b>
                 <br/>
                 <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <br />
+            {errorMessage.errorEmail &&  <><div style={{color: 'red'}}> {errorMessage.errorEmail} </div></>}
             <br />
             <label style={{color: ' black', fontFamily: 'sans-serif'}}>
                 <b>Password:</b>
                 <br/>
                 <input type="password" placeholder='Inserisci password'style={{textAlign: 'center'}} value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
-           
+            {errorMessage.errorPassword &&  <><div style={{color: 'red'}}> {errorMessage.errorPassword} </div></>}
             <button type="button" className='buttonForLoginPage' onClick={() => login()}>Accedi</button>
             <br />
             <button type="button" className='buttonForLoginPage' onClick={()=> {history.push(REGISTER_PAGE)}}>Registrati</button>
             <br/>
-            {(messaggio) ? messaggio.data :'' }
+           
             </div>
 
 

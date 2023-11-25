@@ -4,6 +4,7 @@ import '../custom/ListaChat.css'
 import { findChatForUtente } from '../service/messaggioService'
 import { formattaData } from '../utility/Utils'
 import { resetChat, setChat, setDestinatario } from '../store/slice/chatSlice';
+import { setUtente } from '../store/slice/utenteSlice'
 
 function ListaChat() {
   const utente = useSelector((state) => state.utente);
@@ -11,9 +12,9 @@ function ListaChat() {
   const dispatch = useDispatch('');
 
   useEffect(() => {
-    
+   
     if (utente.idUtente) {
-      findChatForUtente(utente, setListaChat, listaChat);      
+      findChatForUtente(utente, setListaChat, listaChat);     
     }
   });
 
@@ -95,7 +96,7 @@ function ListaChat() {
                             fontWeight: 'normal',
                           }}
                         >
-                          {messaggio.contenutoMessaggio}
+                          {messaggio.contenutoMessaggio.length > 20 ?   messaggio.contenutoMessaggio.substring(0, 20) + '...' : messaggio.contenutoMessaggio}
                         </span>
                         <br />
                         <span

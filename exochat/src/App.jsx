@@ -9,7 +9,6 @@ import ChatPage from './Component/ChatPage';
 import Rubrica from './Component/Rubrica';
 import CreateGruppo from './Component/CreateGruppo';
 import ProfiloPersonale from './Component/ProfiloPersonale';
-import VideoChatPage from './Component/VideoChatPage';
 
 function App() { 
 
@@ -25,7 +24,7 @@ function App() {
           <Route exact path={RUBRICA} component={()=> <Rubrica />}/>
           <Route exact path={CREA_GRUPPO} component={()=> <CreateGruppo/>}/>
           <Route exact path={AREA_PERSONALE} component={()=> <ProfiloPersonale/>}/>
-          {/* <Route exact path={VIDEO_CHAT_PAGE} component={()=> <VideoChatPage/>}/> */}
+          
         </Switch>
 
         <ChatPage />

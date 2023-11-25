@@ -9,8 +9,11 @@
     top: 0;
     bottom: 0;
     left: 100px;
+    overflow-y: auto ; 
+   
 }
 
+.containerRubricaPage::-webkit-scrollbar { display: none; }
 
 .tableListaContatto {
     display: table;
@@ -20,6 +23,7 @@
     border-spacing: 0px;
     border-color: gray;
     margin-top: 10px;
+   
 }
 
 .tableListaContatto th {
