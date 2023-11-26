@@ -20,7 +20,6 @@ export function loginUtente(utente, dispatch, setMessaggio, setUtente, history) 
 export function registerUtente(utente, history) {
   return axios.post(REGISTER_UTENTE(hostName), utente).then((response) => {
     history.push(LOGIN_PAGE)
-    console.log(response.data)
   }).catch(error => {
     console.error('Errore durante la registrazione:', error);
 
@@ -31,7 +30,6 @@ export function registerUtente(utente, history) {
 export function findAllUtente(utente, setContatti) {
   return axios.post(LISTA_CONTATTI(hostName), utente).then((response) => {
     setContatti(response.data)
-    console.log(response.data)
   }).catch(error => {
     console.error('Errore nel caricamento della lista contatti: ', error);
   })
@@ -40,7 +38,6 @@ export function findAllUtente(utente, setContatti) {
 export function findAllGruppi(utente,setGruppi){
   return axios.post(LISTA_GRUPPI_CHAT_NON_INIZIATA(hostName),utente).then((response) => {
     setGruppi(response.data)
-    console.log(response.data)
   }).catch(error =>{
     console.error('Errore nel caricamento della lista gruppi: ', error);
   })
@@ -50,7 +47,6 @@ export function findAllGruppi(utente,setGruppi){
 export function findAllContattiPerGruppo(setUtenti) {
   return axios.get(LISTA_CONTATTI_PER_GRUPPO(hostName)).then((response) => {
     setUtenti(response.data)
-    console.log(response.data)
   }).catch(error => {
     console.error('Errore nel caricamento della lista contatti: ', error);
   })
@@ -60,10 +56,6 @@ export function findAllContattiPerGruppo(setUtenti) {
 export function createGruppo(gruppo, history, utentiSelezionati, utente) {
   return axios.post(INSERT_GROUP(hostName), gruppo).then((response) => {
     const gruppoId = response.data.idUtente;
-    console.log(response.data)
-    console.log(gruppoId)
-    console.log(utente)
-    
     let utentiDaInserire = utentiSelezionati.map((utenteId) => ({
       gruppoId: gruppoId,
       utenteId: utenteId,
@@ -74,17 +66,13 @@ export function createGruppo(gruppo, history, utentiSelezionati, utente) {
       ...utentiDaInserire,
       { gruppoId: gruppoId, utenteId: utente.idUtente }
     ];
-    console.log('seconda stampa')
-    console.log(utentiDaInserire)
     return axios.post(INSERT_UTENTI_GRUPPO(hostName), utentiDaInserire)
       .then((response) => {
-        console.log(response.data);
       })
       .catch((error) => {
         console.error('Errore nel caricamento della lista contatti: ', error);
       });
   }).then(() => {
-
     history.push(RUBRICA);
 
   }).catch((error) => {
@@ -95,7 +83,6 @@ export function createGruppo(gruppo, history, utentiSelezionati, utente) {
 //UPDATEUTENTE
 export function updateUtente(modifiche, setUtente, dispatch, history) {
   return axios.post(UPDATE_UTENTE(hostName), modifiche).then((response) => {
-    console.log(modifiche)
     dispatch(setUtente(response.data))
     history.push(LISTA_CHAT_UTENTE)
   }).catch((error) => {

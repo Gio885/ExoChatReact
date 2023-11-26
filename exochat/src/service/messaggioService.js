@@ -8,13 +8,8 @@ const hostName = window.location.hostname;
 //LISTAMESSAGGIUTENTE
 export function findChatForUtente(utente, setListaChat) {
     setTimeout(() => {
-    return axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente).then((response) => {
-        
-            setListaChat(response.data.data);
-            console.log(response.data) 
-       
-        
-           
+    return axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente).then((response) => {        
+            setListaChat(response.data.data);              
     }).catch(error => {
         console.error('Errore:', error);
     });
@@ -35,9 +30,7 @@ export function insertChatAndSendMessage(chat, setChat, dispatch,  inviaMessaggi
 
 //SENDMESSAGE
 export  function sendMessage(messaggio) {
-    console.log(messaggio)
-    return  axios.post(SEND_MESSAGE(hostName), messaggio).then((response) => {
-             
+    return  axios.post(SEND_MESSAGE(hostName), messaggio).then((response) => {             
     }).catch(error => {
         console.error('Errore:', error);
     });

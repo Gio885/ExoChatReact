@@ -20,10 +20,9 @@ function ListChatPage() {
     useEffect(() => {
 
         findChatForUtente(utente, setListaChat);
-        
         if (chat.idChat) {
             findAllMessageForChat(chat, setListaMessaggiDellaChat);
-           
+
         }
     }, [chat, aggiornamento])
 
@@ -45,16 +44,12 @@ function ListChatPage() {
         setAggiornamento(!aggiornamento)
     }
 
-
-
-
-
     function inviaMessaggio(contenuto) {
-        
+
         if (contenuto && contenuto !== '' && contenuto !== undefined) {
             console.log('qui')
             if (!chat.idChat) {
-                insertChatAndSendMessage(chat, setChat, dispatch, inviaMessaggioSequenziale, contenuto,setAggiornamento, aggiornamento, setContenutoMessaggio )
+                insertChatAndSendMessage(chat, setChat, dispatch, inviaMessaggioSequenziale, contenuto, setAggiornamento, aggiornamento, setContenutoMessaggio)
 
             }
             if (chat.idChat) {
@@ -109,13 +104,15 @@ function ListChatPage() {
 
             <div className='containerTableLista'>
                 <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CHAT</b></h1>
-                <div className='searchBar'>
+                {/* <div className='searchBar'>
                     <input
                         type='text'
                         placeholder='Cerca per nome...'
                     />
                     <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i className="fa-solid fa-magnifying-glass fa-2x"></i></button>
-                </div>
+                </div> */}
+                <br />
+                <br />
                 <table className='tableListaChat'>
                     <thead>
                         {listaChat && listaChat.map((messaggio) => (
@@ -190,10 +187,7 @@ function ListChatPage() {
                 </table>
             </div>
 
-
             <div className='containerChatPage'>
-
-
 
                 {(listaMessaggiDellaChat && chat.destinatario.amministratoreGruppo === undefined && Object.keys(listaMessaggiDellaChat).length > 0) && (
                     listaMessaggiDellaChat.map((messaggio) => (
@@ -300,11 +294,6 @@ function ListChatPage() {
             </div>
 
         </>
-
-
-
-
-
     )
 }
 
