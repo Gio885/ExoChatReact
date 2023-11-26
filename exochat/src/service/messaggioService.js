@@ -21,10 +21,10 @@ export function findChatForUtente(utente, setListaChat) {
 }, 1000);
 }
 //INSERT CHAT
-export function insertChatAndSendMessage(chat, inviaMessaggioSequenziale, contenuto,setAggiornamento, aggiornamento, setContenutoMessaggio ) {
+export function insertChatAndSendMessage(chat, setChat, dispatch,  inviaMessaggioSequenziale, contenuto,setAggiornamento, aggiornamento, setContenutoMessaggio ) {
     setTimeout(()=> {
         return axios.post(INSERT_CHAT(hostName), chat).then((response) => {
-            
+            dispatch(setChat(response.data))
             inviaMessaggioSequenziale(contenuto, chat, response.data , setAggiornamento, aggiornamento, setContenutoMessaggio)
         }).catch(error => {
             console.error('Errore caricamento chat: ', error);

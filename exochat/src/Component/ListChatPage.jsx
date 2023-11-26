@@ -54,10 +54,8 @@ function ListChatPage() {
         if (contenuto && contenuto !== '' && contenuto !== undefined) {
             console.log('qui')
             if (!chat.idChat) {
-                insertChatAndSendMessage(chat, inviaMessaggioSequenziale, contenuto,setAggiornamento, aggiornamento, setContenutoMessaggio )
+                insertChatAndSendMessage(chat, setChat, dispatch, inviaMessaggioSequenziale, contenuto,setAggiornamento, aggiornamento, setContenutoMessaggio )
 
-                dispatch(setChat(chatAppoggio))
-                
             }
             if (chat.idChat) {
                 inviaMessaggioSequenziale(contenuto, chat, chat, setAggiornamento, aggiornamento, setContenutoMessaggio)
