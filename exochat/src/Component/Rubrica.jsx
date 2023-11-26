@@ -8,7 +8,7 @@ import { useHistory } from 'react-router-dom/cjs/react-router-dom.min';
 import { CREA_GRUPPO, LISTA_CHAT_UTENTE, VIDEO_CHAT, VIDEO_CHAT_PAGE } from '../utility/Route';
 
 
-function Rubrica() {
+function Rubrica({aggiornamento, setAggiornamento}) {
 
   const [contatti, setContatti] = useState();
   const [gruppi, setGruppi] = useState();
@@ -30,7 +30,7 @@ function Rubrica() {
   function iniziaChat(contatto) {
    
     //insertChat(chat, dispatch, setChat, contatto);
-    history.push(LISTA_CHAT_UTENTE)
+    
     console.log(contatto)
     dispatch(resetChat())
     dispatch(setDestinatario(contatto))
@@ -39,6 +39,10 @@ function Rubrica() {
     } else {
       dispatch(setTipoChatId(1))
     }
+    setAggiornamento(!aggiornamento)
+    history.push(LISTA_CHAT_UTENTE)
+
+
   
   }
 

@@ -3,8 +3,7 @@ import { useDispatch, useSelector } from 'react-redux'
 import '../custom/ListaChat.css'
 import { findChatForUtente } from '../service/messaggioService'
 import { formattaData } from '../utility/Utils'
-import { resetChat, setChat, setDestinatario } from '../store/slice/chatSlice';
-import { setUtente } from '../store/slice/utenteSlice'
+import { setChat } from '../store/slice/chatSlice';
 
 function ListaChat() {
   const utente = useSelector((state) => state.utente);
@@ -14,22 +13,25 @@ function ListaChat() {
   useEffect(() => {
    
     if (utente.idUtente) {
-      findChatForUtente(utente, setListaChat, listaChat);     
+      findChatForUtente(utente, setListaChat, listaChat);   
+      console.log('terzo')  
     }
-  });
+  }, []);
 
 
   function handleChatPage(messaggio) {
+    let destinatarioChat = '';
+    if(messaggio.destinatario !== undefined){
+      ((messaggio.destinatario.idUtente === utente.idUtente) ? destinatarioChat = messaggio.mittente : destinatarioChat =  messaggio.destinatario)
+    } else {
+      destinatarioChat = messaggio.gruppo
+    }  
+    
     const chat = {
       idChat: messaggio.idChat,
-      tipoChatId: messaggio.tipoChatId
+      tipoChatId: messaggio.tipoChatId,
+      destinatario: destinatarioChat
     }
-    if(messaggio.destinatario !== undefined){
-      dispatch(setDestinatario((messaggio.destinatario.idUtente === utente.idUtente) ? messaggio.mittente : messaggio.destinatario))
-    } else {
-      dispatch(setDestinatario(messaggio.gruppo))
-    }
-    
     
     dispatch(setChat(chat));
   }

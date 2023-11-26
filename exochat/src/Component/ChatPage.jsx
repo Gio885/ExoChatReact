@@ -21,18 +21,22 @@ function ChatPage() {
     if (utente.idUtente && chat.idChat) {
 
       findAllMessageForChat(chat, setListaMessaggiDellaChat);
+      console.log('primo')
     } else {
       setListaMessaggiDellaChat([])
+      console.log('secondo')
     }
     
-  });
+  }, []);
 
   function inviaMessaggio(contenuto) {
 
     if (contenuto && contenuto !== '' && contenuto !== undefined) {
       if (!chat.idChat) {
-        insertChat(chat, dispatch, setChatAppoggio)
-        dispatch(setChat(chatAppoggio))        
+       // insertChat(chat, dispatch, setChatAppoggio)
+        dispatch(setChat(chatAppoggio)) 
+        console.log(chatAppoggio)   
+        console.log(chat)    
       }
       if (chatAppoggio.idChat) {
         inviaMessaggioSequenziale(contenuto, chatAppoggio)
@@ -76,6 +80,8 @@ function ChatPage() {
       setContenutoMessaggio('');
 
     }
+
+  
 
   }
 
@@ -235,7 +241,7 @@ function ChatPage() {
                   inviaMessaggio(contenutoMessaggio)
                 }}
               >
-                <i class='fa-solid fa-paper-plane fa-2x'></i>
+                <i className='fa-solid fa-paper-plane fa-2x'></i>
               </button>
             </div>
           </div>
