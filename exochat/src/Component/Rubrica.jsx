@@ -13,6 +13,7 @@ function Rubrica({aggiornamento, setAggiornamento}) {
   const [gruppi, setGruppi] = useState();
   const utente = useSelector((state) => state.utente)
   const dispatch = useDispatch('')
+  const [utenteRicercato, setUtenteRicercato] = useState('')
   const history = useHistory('')
   
 
@@ -41,13 +42,14 @@ function Rubrica({aggiornamento, setAggiornamento}) {
 
     <div className='containerRubricaPage'>
       <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', alignItems: 'center', textAlign: 'left', margin: '0 0 0 0', marginTop: '21px', marginLeft: '20px', marginBottom: '0px' }}><b>RUBRICA</b></h1>
-      {/* <div className='searchBar'>
+      <div className='searchBar'>
         <input 
           type='text'
           placeholder='Cerca per nome...'
+          onChange={(e) => { setUtenteRicercato(e.target.value) }} 
         />
         <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
-      </div> */}
+      </div>
       <br />
       <br />
       <div onClick={()=> {history.push(CREA_GRUPPO)}}  style={{ marginTop: '-20px', marginBottom: '15px', backgroundColor: 'white', borderRadius: '15px', height: '40px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', left: '14%' }}>
@@ -57,7 +59,9 @@ function Rubrica({aggiornamento, setAggiornamento}) {
       <table className='tableListaContatto'>
         <thead>
 
-          {contatti && contatti.filter(contatti => contatti.idUtente !== utente.idUtente).map((contatto) => (
+          {contatti && contatti.filter(utenteRicercato !== ''
+                                ? (contatti) => contatti.username.includes(utenteRicercato)
+                                : (contatti) => contatti.idUtente !== utente.idUtente).map((contatto) => (
             <tr key={contatto.idUtente} >
               <th>
                 <div className="containerContatto" >

@@ -14,7 +14,7 @@ function ListChatPage() {
     const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([]);
     const [contenutoMessaggio, setContenutoMessaggio] = useState('');
     const [aggiornamento, setAggiornamento] = useState(false)
-    const [chatAppoggio, setChatAppoggio] = useState()
+    const [utenteRicercato, setUtenteRicercato] = useState('')
     const dispatch = useDispatch('');
 
     useEffect(() => {
@@ -104,18 +104,22 @@ function ListChatPage() {
 
             <div className='containerTableLista'>
                 <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>ELENCO CHAT</b></h1>
-                {/* <div className='searchBar'>
+                <div className='searchBar'>
                     <input
                         type='text'
                         placeholder='Cerca per nome...'
+                        onChange={(e) => { setUtenteRicercato(e.target.value) }}                        
                     />
                     <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i className="fa-solid fa-magnifying-glass fa-2x"></i></button>
-                </div> */}
+                </div>
                 <br />
                 <br />
                 <table className='tableListaChat'>
                     <thead>
-                        {listaChat && listaChat.map((messaggio) => (
+                        {listaChat && listaChat.filter(utenteRicercato !== ''
+                                ? (chat) => chat.destinatario.username.includes(utenteRicercato)
+                                : () => true 
+                        ).map((messaggio) => (
                             <tr key={messaggio.idChat} onClick={() => { handleChatPage(messaggio) }}>
                                 <th>
                                     <div className="containerChat">
