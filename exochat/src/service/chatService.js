@@ -4,13 +4,11 @@ import { LISTA_MESSAGGI_PER_CHAT } from "../utility/EndPoint";
 const hostName = window.location.hostname;
 
 //LISTAMESSAGGIPERCHAT
-export function findAllMessageForChat(chat, setListaMessaggiDellaChat){
-    setTimeout(()=> {
-    return axios.post(LISTA_MESSAGGI_PER_CHAT(hostName), chat).then((response)=> {
-        setListaMessaggiDellaChat(response.data) 
-    }).catch(error => {
-        console.error('Errore:', error);               
-      });
-
-    } , 2000)
+export async function findAllMessageForChat(chat, setListaMessaggiDellaChat) {
+    try {
+        const response = await axios.post(LISTA_MESSAGGI_PER_CHAT(hostName), chat);
+        setListaMessaggiDellaChat(response.data);
+    } catch (error) {
+        console.error('Errore:', error);
+    }
 }

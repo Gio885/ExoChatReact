@@ -24,7 +24,7 @@ function ListChatPage() {
             findAllMessageForChat(chat, setListaMessaggiDellaChat);
 
         }
-    }, [chat, aggiornamento])
+    }, [aggiornamento])
 
     function handleChatPage(messaggio) {
         let destinatarioChat = '';
