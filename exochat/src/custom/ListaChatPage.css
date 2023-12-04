@@ -64,15 +64,13 @@
     color: white;
     padding: 70px;
     position: fixed;
-    top: 50px;
- 
+    top: 50px; 
     right: 0;    
     overflow-y: auto;
     scrollbar-width: none;
     max-height: 460px;
     font-family: "Helvetica Neue", Helvetica, sans-serif;
-    
-    
+        
 }
 
 .containerChatPage::-webkit-scrollbar { display: none; }
@@ -135,3 +133,26 @@
     word-wrap: break-word; 
     white-space: pre-wrap; 
 }
+
+
+
+.custom-file-input {
+    display: inline-block;
+    padding: 10px 15px;
+    font-size: 16px;
+    font-family: Arial, sans-serif;
+    cursor: pointer;
+    border: 1px solid #ccc;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+  }
+  
+  /* Aggiungi stili al pulsante o all'icona per renderlo più accattivante */
+  .custom-file-input-label {
+    margin-right: 10px;
+  }
+  
+  /* Aggiungi uno stile quando il cursore è sopra il pulsante o l'icona */
+  .custom-file-input:hover {
+    background-color: #e0e0e0;
+  }

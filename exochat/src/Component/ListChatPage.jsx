@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux';
 import '../custom/ListaChatPage.css'
 import { formattaData } from '../utility/Utils';
@@ -12,18 +12,55 @@ function ListChatPage() {
     const utente = useSelector((state) => state.utente);
     const [listaChat, setListaChat] = useState([]);
     const [listaMessaggiDellaChat, setListaMessaggiDellaChat] = useState([]);
-    const [contenutoMessaggio, setContenutoMessaggio] = useState('');
+    const [contenutoMessaggio, setContenutoMessaggio] = useState();
     const [aggiornamento, setAggiornamento] = useState(false)
     const [utenteRicercato, setUtenteRicercato] = useState('')
+    const [file, setFile] = useState()
     const dispatch = useDispatch('');
+    const fileInputRef = useRef();
+
 
     useEffect(() => {
 
         findChatForUtente(utente, setListaChat);
+        console.log(listaChat)
         if (chat.idChat) {
             findAllMessageForChat(chat, setListaMessaggiDellaChat);
         }
     }, [aggiornamento])
+
+    const handleClick = () => {
+        fileInputRef.current.click();
+    };
+
+    function convertToBase64(file, callback) {
+        const reader = new FileReader();
+
+        reader.onload = function (e) {
+            const base64String = e.target.result.split(',')[1];
+            callback(base64String);
+        };
+
+        reader.readAsDataURL(file);
+    }
+
+
+    const handleFileChange = (event) => {
+
+        const fileSelezionato = event.target.files[0]
+        if (fileSelezionato) {
+            convertToBase64(fileSelezionato, (base64String) => {
+                setFile(base64String)
+            });
+        }
+
+
+        //console.log('File selezionato:', fileSelezionato);
+        console.log('File selezionato:', file);
+
+        // return fileSelezionato;
+    };
+
 
     function handleChatPage(messaggio) {
         let destinatarioChat = '';
@@ -38,9 +75,9 @@ function ListChatPage() {
             tipoChatId: messaggio.tipoChatId,
             destinatario: destinatarioChat
         }
-
+        setFile(null)
         dispatch(setChat(chatForSet));
-        setAggiornamento(!aggiornamento)
+        setAggiornamento(!aggiornamento) 
     }
 
     function inviaMessaggio(contenuto) {
@@ -49,10 +86,11 @@ function ListChatPage() {
             console.log('qui')
             if (!chat.idChat) {
                 insertChatAndSendMessage(chat, setChat, dispatch, inviaMessaggioSequenziale, contenuto, setAggiornamento, aggiornamento, setContenutoMessaggio)
-
+                console.log('insertchat')
             }
             if (chat.idChat) {
-                inviaMessaggioSequenziale(contenuto, chat, chat, setAggiornamento, aggiornamento, setContenutoMessaggio)
+                inviaMessaggioSequenziale(contenuto, file, chat, chat, setAggiornamento, aggiornamento, setContenutoMessaggio)
+                console.log('sendmessage')
             }
 
         } else {
@@ -61,7 +99,7 @@ function ListChatPage() {
 
     }
 
-    function inviaMessaggioSequenziale(contenuto, chat, response, setAggiornamento, aggiornamento, setContenutoMessaggio) {
+    function inviaMessaggioSequenziale(contenuto, file, chat, response, setAggiornamento, aggiornamento, setContenutoMessaggio) {
         if (chat.destinatario.amministratoreGruppo) {
 
             const gruppoDaInviare = {
@@ -75,6 +113,7 @@ function ListChatPage() {
                 mittente: utente,
                 dataOra: new Date(),
                 contenutoMessaggio: contenuto,
+                file: file,
                 chat: response,
                 gruppo: gruppoDaInviare
             };
@@ -88,6 +127,7 @@ function ListChatPage() {
                 mittente: utente,
                 dataOra: new Date(),
                 contenutoMessaggio: contenuto,
+                file: file,
                 chat: response,
                 destinatario: chat.destinatario
             };
@@ -107,80 +147,47 @@ function ListChatPage() {
                     <input
                         type='text'
                         placeholder='Cerca per nome...'
-                        onChange={(e) => { setUtenteRicercato(e.target.value) }}                        
+                        onChange={(e) => { setUtenteRicercato(e.target.value) }}
                     />
                     <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i className="fa-solid fa-magnifying-glass fa-2x"></i></button>
                 </div>
-                <br />
-                <br />
                 <table className='tableListaChat'>
                     <thead>
-                        {listaChat && listaChat.filter(utenteRicercato !== ''
-                                ? (chat) => chat.destinatario.username.includes(utenteRicercato)
-                                : () => true 
-                        ).map((messaggio) => (
-                            <tr key={messaggio.idChat} onClick={() => { handleChatPage(messaggio) }}>
+                        {(listaChat) && listaChat.filter(utenteRicercato !== ''
+                            ? (chat) => chat.destinatario.username.includes(utenteRicercato)
+                            : () => true
+                        ).map((chat) => (
+                            <tr key={chat.idChat} onClick={() => { handleChatPage(chat) }}>
                                 <th>
                                     <div className="containerChat">
                                         <img
-                                            src={(messaggio.tipoChatId === 1) ? (messaggio.destinatario.username !== utente.username)
-                                                ? `data:image/png;base64,${messaggio.destinatario.fotoConvertita}`
-                                                : `data:image/png;base64,${messaggio.mittente.fotoConvertita}`
-                                                : `data:image/png;base64,${messaggio.gruppo.fotoConvertita}`}
+                                            src={(chat.tipoChatId === 1) ? (chat.destinatario.username !== utente.username)
+                                                ? `data:image/png;base64,${chat.destinatario.fotoConvertita}`
+                                                : `data:image/png;base64,${chat.mittente.fotoConvertita}`
+                                                : `data:image/png;base64,${chat.gruppo.fotoConvertita}`}
                                             style={{ width: '50px', height: '50px', borderRadius: '50%', margin: '5px 0 0 -290px' }}
                                         />
                                         <span
-                                            style={{
-                                                textAlign: 'left',
-                                                color: 'black',
-                                                display: 'flex',
-                                                marginTop: '-50px',
-                                                marginLeft: '60px',
-                                                fontSize: '20px',
-                                            }}
-                                        >
+                                            style={{ textAlign: 'left', color: 'black', display: 'flex', marginTop: '-50px', marginLeft: '60px', fontSize: '20px' }}>
 
                                             <b>
-                                                {
-                                                    // Se è una chat individuale
-                                                    messaggio.tipoChatId === 1
-                                                        ? (
-                                                            // Se il destinatario è l'utente corrente, mostra il nome del mittente, altrimenti mostra il nome del destinatario
-                                                            (messaggio.destinatario.idUtente === utente.idUtente)
-                                                                ? messaggio.mittente.username
-                                                                : messaggio.destinatario.username
-                                                        )
-                                                        // Se è una chat di gruppo, mostra il nome del gruppo
-                                                        : messaggio.gruppo.username
-                                                }
+                                                {chat.tipoChatId === 1
+                                                    ? ((chat.destinatario.idUtente === utente.idUtente)
+                                                        ? chat.mittente.username
+                                                        : chat.destinatario.username
+                                                    )
+                                                    : chat.gruppo.username}
                                             </b>
                                         </span>
                                         <span
-                                            style={{
-                                                color: 'black',
-                                                textAlign: 'left',
-                                                justifyContent: 'left',
-                                                display: 'flex',
-                                                marginLeft: '60px',
-                                                fontWeight: 'normal',
-                                            }}
-                                        >
-                                            {messaggio.contenutoMessaggio.length > 20 ? messaggio.contenutoMessaggio.substring(0, 20) + '...' : messaggio.contenutoMessaggio}
+                                            style={{ color: 'black', textAlign: 'left', justifyContent: 'left', display: 'flex', marginLeft: '60px', fontWeight: 'normal' }}>
+                                            {chat.contenutoMessaggio.length > 20 ? chat.contenutoMessaggio.substring(0, 20) + '...' : chat.contenutoMessaggio}
                                         </span>
                                         <br />
                                         <span
-                                            style={{
-                                                textAlign: 'right',
-                                                justifyContent: 'right',
-                                                marginLeft: '160px',
-                                                marginTop: '-15px',
-                                                marginBottom: '15px',
-                                                fontSize: '12px',
-                                                color: 'gray',
-                                                display: 'block',
-                                            }}
+                                            style={{ textAlign: 'right', justifyContent: 'right', marginLeft: '160px', marginTop: '-15px', marginBottom: '15px', fontSize: '12px', color: 'gray', display: 'block' }}
                                         >
-                                            {formattaData(messaggio.dataOra)}
+                                            {formattaData(chat.dataOra)} 
                                         </span>
                                     </div>
                                 </th>
@@ -207,15 +214,7 @@ function ListChatPage() {
                             <div className={messaggio.mittente.idUtente === utente.idUtente ? 'messaggio-mittente' : 'messaggio-destinatario'} >
                                 <span>{messaggio.contenutoMessaggio}</span>
                                 <br />
-                                <span
-                                    style={{
-                                        textAlign: 'right',
-                                        justifyContent: 'right',
-                                        display: 'flex',
-                                        marginLeft: '60px',
-                                        fontSize: '12px',
-                                        color: 'gray',
-                                    }}
+                                <span style={{ textAlign: 'right', justifyContent: 'right', display: 'flex', marginLeft: '60px', fontSize: '12px', color: 'gray' }}
                                 >
                                     {formattaData(messaggio.dataOra)}
                                 </span>
@@ -260,18 +259,10 @@ function ListChatPage() {
                     <div className='containerMessaggio'>
                         <div className='profiloContatto'>
                             <img src={`data:image/png;base64,${chat.destinatario.fotoConvertita}`} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
-
                             <span style={{ fontFamily: 'Fonseca, sans-serif', color: 'black' }}>
                                 {' '}
                                 {chat.destinatario.username && <>{chat.destinatario.username}</>}{' '}
-
                             </span>
-
-
-
-
-
-
                         </div>
                     </div>}
 
@@ -286,13 +277,29 @@ function ListChatPage() {
                     />
                     <button
                         style={{ backgroundColor: 'transparent', border: '0px', marginBottom: '27px' }}
-                        onClick={() => {
-                            inviaMessaggio(contenutoMessaggio)
-                        }
-                        }
-                    >
+                        onClick={() => { inviaMessaggio(contenutoMessaggio) }}>
                         <i className='fa-solid fa-paper-plane fa-2x'></i>
                     </button>
+                    <div>
+                        <label className="custom-file-icon" onClick={handleClick}>
+                            {file ? <>
+                                <i class="fa-regular fa-circle-check fa-xl" style={{ color: 'green' }}></i>
+                            </> : <>
+                                <i className="fa-solid fa-file-import fa-xl" style={{ color: '#050505' }}></i>
+                            </>}
+
+                        </label>
+
+
+                        <input type="file" id="fileInput" ref={fileInputRef} style={{ display: 'none' }} onChange={handleFileChange} />
+
+                    </div>
+                    <div>
+
+
+                    </div>
+
+
                 </div>
             </div>
 

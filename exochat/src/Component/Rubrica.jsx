@@ -51,7 +51,6 @@ function Rubrica({aggiornamento, setAggiornamento}) {
         <button style={{ backgroundColor: "transparent", border: '0px', marginBottom: '27px' }}><i class="fa-solid fa-magnifying-glass fa-2x"></i></button>
       </div>
       <br />
-      <br />
       <div onClick={()=> {history.push(CREA_GRUPPO)}}  style={{ marginTop: '-20px', marginBottom: '15px', backgroundColor: 'white', borderRadius: '15px', height: '40px', width: '250px', display: 'flex', justifyContent: 'center', alignItems: 'center', position: 'relative', left: '14%' }}>
         <h3 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif' }}><i class="fa-solid fa-user-group"></i><b style={{ marginLeft: '10px' }}>NUOVO GRUPPO</b></h3>
       </div>
@@ -76,7 +75,6 @@ function Rubrica({aggiornamento, setAggiornamento}) {
                 </div>
               </th>
             </tr>
-
           ))}
 
         </thead>

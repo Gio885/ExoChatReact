@@ -11,6 +11,7 @@ export async function findChatForUtente(utente, setListaChat) {
     try {
         const response = await axios.post(LISTA_MESSAGGI_UTENTE_ID_PER_CHAT(hostName), utente);
         setListaChat(response.data.data);
+        console.log(response.data.data)
     } catch (error) {
         console.error('Errore:', error);
     }
