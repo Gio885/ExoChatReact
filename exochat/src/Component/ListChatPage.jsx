@@ -22,7 +22,6 @@ function ListChatPage() {
         findChatForUtente(utente, setListaChat);
         if (chat.idChat) {
             findAllMessageForChat(chat, setListaMessaggiDellaChat);
-
         }
     }, [aggiornamento])
 
