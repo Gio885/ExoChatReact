@@ -87,7 +87,7 @@ export async function updateUtente(modifiche, setUtente, dispatch, history) {
   try {
     const response = await axios.post(UPDATE_UTENTE(hostName), modifiche);
     dispatch(setUtente(response.data));
-    history.push(LISTA_CHAT_UTENTE);
+    history.push("/webSocket");
   } catch (error) {
     console.error('Errore nel caricamento della lista contatti: ', error);
   }

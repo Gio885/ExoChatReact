@@ -170,9 +170,10 @@ const WebSocketComponent = () => {
                                             </div>
                                         </div>
                                         <button onClick={() => { selezioneChat(chat) }} style={{ position: "relative", left: "10px", backgroundColor: "transparent", border: '0px', marginTop: "10px" }}
-                                         onMouseOver={(e) => { e.currentTarget.style.color = '#0f756a' }}
-                                         onMouseOut={(e) => { e.currentTarget.style.color = 'black' }}
-                                        ><i className="fa-solid fa-message fa-2x" style={{ color: '#050505',cursor:"pointer"}}></i></button>
+                                        ><i className="fa-solid fa-message fa-2x" style={{ color: '#050505',cursor:"pointer"}}
+                                        onMouseOver={(e) => { e.currentTarget.style.color = '#0f756a' }}
+                                        onMouseOut={(e) => { e.currentTarget.style.color = 'black' }}
+                                        ></i></button>
                                     </div>
                                 </> :
                                 <> {/*MESSAGGI DI GRUPPO */}
