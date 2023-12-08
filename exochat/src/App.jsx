@@ -9,7 +9,7 @@ import Rubrica from './Component/Rubrica';
 import CreateGruppo from './Component/CreateGruppo';
 import ProfiloPersonale from './Component/ProfiloPersonale';
 import { useState } from 'react';
-
+import WebSocket from './Component/WebSocket';
 function App() { 
 
   const [aggiornamentoForzato, setAggiornamentoForzato] = useState('')
@@ -24,9 +24,9 @@ function App() {
           <Route exact path={REGISTER_PAGE} component={() => <RegisterPage />} />
           <Route exact path={LISTA_CHAT_UTENTE} component={() => <ListChatPage aggiornamento={aggiornamentoForzato} setAggiornamento = {setAggiornamentoForzato}/>} />  
           <Route exact path={RUBRICA} component={()=> <Rubrica aggiornamento={aggiornamentoForzato} setAggiornamento = {setAggiornamentoForzato} />}/>
-          <Route exact path={CREA_GRUPPO} component={()=> <CreateGruppo/>}/>
           <Route exact path={AREA_PERSONALE} component={()=> <ProfiloPersonale/>}/>
-          
+          <Route exact path={"/webSocket"} component={()=> <WebSocket/>}/>
+
         </Switch>
 
       </BrowserRouter>
