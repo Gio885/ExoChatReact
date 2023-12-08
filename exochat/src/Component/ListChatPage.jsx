@@ -48,10 +48,12 @@ function ListChatPage() {
     const handleFileChange = (event) => {
 
         const fileSelezionato = event.target.files[0]
+        console.log("fileselezionato",fileSelezionato)
         if (fileSelezionato) {
             convertToBase64(fileSelezionato, (base64String) => {
                 setFile(base64String)
             });
+            
         }
 
 
@@ -283,7 +285,7 @@ function ListChatPage() {
                     <div>
                         <label className="custom-file-icon" onClick={handleClick}>
                             {file ? <>
-                                <i class="fa-regular fa-circle-check fa-xl" style={{ color: 'green' }}></i>
+                                <i className="fa-regular fa-circle-check fa-xl" style={{ color: 'green' }}></i>
                             </> : <>
                                 <i className="fa-solid fa-file-import fa-xl" style={{ color: '#050505' }}></i>
                             </>}

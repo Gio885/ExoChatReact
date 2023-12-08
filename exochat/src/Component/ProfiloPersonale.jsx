@@ -116,14 +116,15 @@ function ProfiloPersonale() {
     <>
 
 
-      <div className='containerTableLista'>
-        <h1 style={{ color: 'black', fontFamily: 'Fonseca, sans-serif', textAlign: 'left', marginLeft: '20px', marginBottom: '0px' }}><b>AREA PERSONALE</b></h1>
+      <div style={{ backgroundColor: "#075E54", position: "fixed", bottom: "0px", top: "0px", width: "400px", marginLeft: "92px" }}>
+        <h2 style={{ color: 'white', fontFamily: 'Fonseca, sans-serif', textAlign: 'center', marginLeft: '20px', marginBottom: '0px' }}><b>AREA PERSONALE</b></h2>
         <br />
         <br />
-        <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
+        <label style={{ color: '#EBE4DC', fontFamily: 'sans-serif'}}>
           <b>Username:</b>
           {modifica ? (
             <input
+            style={{marginTop:"10px"}}
               type='text'
               value={modifiche.username}
               onChange={(e) => gestisciModifiche('username', e.target.value)}
@@ -135,10 +136,11 @@ function ProfiloPersonale() {
         <br />
         {(alertUsername) && <div style={{color: 'red'}}> {alertUsername} </div>}
         <br />
-        <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
+        <label style={{ color: '#EBE4DC', fontFamily: 'sans-serif' }}>
           <b>Email:</b>
           {modifica ? (
             <input
+            style={{marginTop:"10px"}}
               type='email'
               value={modifiche.email}
               onChange={(e) => gestisciModifiche('email', e.target.value)}
@@ -150,10 +152,11 @@ function ProfiloPersonale() {
         <br />
         {(alertEmail) && <div style={{color: 'red'}}> {alertEmail} </div>}
         <br />
-        <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
+        <label style={{ color: '#EBE4DC', fontFamily: 'sans-serif' }}>
           <b>Password:</b>
           {modifica ? (
             <input
+            style={{marginTop:"10px"}}
               type='password'
               value={modifiche.password}
               onChange={(e) => gestisciModifiche('password', e.target.value)}
@@ -165,7 +168,7 @@ function ProfiloPersonale() {
         <br />
         {(alertPassword) && <div style={{color: 'red'}}> {alertPassword} </div>}
         <br />
-        <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
+        <label style={{ color: '#EBE4DC', fontFamily: 'sans-serif' }}>
           <b>Foto:</b>
           <br />
           <br />
@@ -181,7 +184,7 @@ function ProfiloPersonale() {
         </label>
         <br />
         <br />
-        <label style={{ color: 'black', fontFamily: 'sans-serif' }}>
+        <label style={{ color: '#EBE4DC', fontFamily: 'sans-serif' }}>
           <b>Info:</b>
           <br />
           <br />
