@@ -1,6 +1,9 @@
 body {
   text-align: center;
-  background-image: url('../image/sfondonero.jpg');;
+  height: 100%;
+  background-image: url('https://static.vecteezy.com/ti/vettori-gratis/p3/1836088-poster-astratto-sfondo-grigio-con-design-dinamico-vettoriale.jpg');
+  background-repeat: no-repeat;
+  background-size: 100% 1000px;
 }
 
 

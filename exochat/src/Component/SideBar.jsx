@@ -20,16 +20,28 @@ function SideBar() {
           <img src={`data:image/png;base64,${utente.fotoConvertita}`} style={{ width: '50px', height: '50px', borderRadius: '50%' }} />
             <br /> <br />
           {/* LISTA MESSAGGI */}
-          <button style={{ backgroundColor: "transparent", border: '0px' }} onClick={() => { history.push(LISTA_CHAT_UTENTE) }}><i className="fa-solid fa-message fa-2x" style={{ color: '#050505' }}></i></button>
+          <button style={{ backgroundColor: "transparent", border: '0px',marginTop:"10px" }} onClick={() => { history.push("/webSocket") }}><i className="fa-solid fa-message fa-2x" style={{ color: '#25D366' ,display:"flex",justifyContent:"center",alignItems:"center",width:"40px",height:"40px",borderRadius:"50%",cursor: 'pointer'}}
+           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#0f756a' }}
+           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent' }}
+           ></i></button>
           <br />
           {/* RUBRICA */}
-          <button style={{ backgroundColor: "transparent", border: '0px' }} onClick={() => { history.push(RUBRICA) }}><i className="fa-solid fa-address-book fa-2x" style={{ color: "#0d0d0d" }}></i></button>
+          <button style={{ backgroundColor: "transparent", border: '0px' ,marginTop:"10px"}} onClick={() => { history.push(RUBRICA) }}><i className="fa-solid fa-address-book fa-2x" style={{ color: "#25D366" ,display:"flex",justifyContent:"center",alignItems:"center",width:"40px",height:"40px",borderRadius:"50%",cursor: 'pointer'}}
+           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#0f756a' }}
+           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent' }}
+          ></i></button>
           <br />
           {/* PROFILO PERSONALE */}
-          <button style={{ backgroundColor: "transparent", border: '0px' }} onClick={() => { history.push(AREA_PERSONALE) }}><i className="fa-solid fa-user fa-2x" style={{ color: "#0d0d0d" }}></i></button>
+          <button style={{ backgroundColor: "transparent", border: '0px',marginTop:"10px" }} onClick={() => { history.push(AREA_PERSONALE) }}><i className="fa-solid fa-user fa-2x" style={{ color: "#25D366",display:"flex",justifyContent:"center",alignItems:"center",width:"40px",height:"40px",borderRadius:"50%",cursor: 'pointer' }}
+           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#0f756a' }}
+           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent' }}
+          ></i></button>
           <br />
           {/* LOGOUT */}
-          <button style={{ backgroundColor: "transparent", border: '0px' }} onClick={() => { logout(resetUtente, resetChat, history, dispatch) }}><i className="fa-solid fa-right-from-bracket fa-2x" style={{ color: "#0d0d0d" }}></i></button>
+          <button style={{ backgroundColor: "transparent", border: '0px',marginTop:"10px" }} onClick={() => { logout(resetUtente, resetChat, history, dispatch) }}><i className="fa-solid fa-right-from-bracket fa-2x" style={{ color: "#25D366",display:"flex",justifyContent:"center",alignItems:"center",width:"40px",height:"40px",borderRadius:"50%",cursor: 'pointer' }}
+           onMouseOver={(e) => { e.currentTarget.style.backgroundColor = '#0f756a' }}
+           onMouseOut={(e) => { e.currentTarget.style.backgroundColor = 'transparent' }}
+          ></i></button>
 
 
         </div>

@@ -6,21 +6,23 @@ const hostName = window.location.hostname;
 
 //LOGIN
 export async function loginUtente(utente, dispatch, setMessaggio, setUtente, history) {
+  console.log(hostName+" ----------------------------------------------------")
   try {
     const response = await axios.post(LOGIN_UTENTE(hostName), utente);
     dispatch(setUtente(response.data));
-    history.push(LISTA_CHAT_UTENTE);
+    history.push("/webSocket");
   } catch (error) {
+    console.log(hostName+" ----------------------------------------------------")
     dispatch(setMessaggio({ data: error.response.data }));
     console.log(error);
     console.error('Errore durante il login:', error);
   }
 }
 //REGISTER
-export async function registerUtente(utente, history) {
+export async function registerUtente(utente) {
   try {
     const response = await axios.post(REGISTER_UTENTE(hostName), utente);
-    history.push(LOGIN_PAGE);
+    return response;
   } catch (error) {
     console.error('Errore durante la registrazione:', error);
   }
@@ -31,6 +33,7 @@ export async function findAllUtente(utente, setContatti) {
   try {
     const response = await axios.post(LISTA_CONTATTI(hostName), utente);
     setContatti(response.data);
+    console.log(response.data)
   } catch (error) {
     console.error('Errore nel caricamento della lista contatti: ', error);
   }

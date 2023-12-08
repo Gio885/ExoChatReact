@@ -7,7 +7,7 @@ export const REGISTER_UTENTE = (hostName) => 'http://' + hostName + ':8080/ExoCh
 export const LISTA_MESSAGGI_UTENTE_ID_PER_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/messaggioRest/listaUltimiMessaggiPerChat'
 //LISTAMESSAGGIPERCHAT
 export const LISTA_MESSAGGI_PER_CHAT = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/messaggioRest/listaMessaggiPerChat'
-//SENDMESSAGE
+//SENDMESSAGEs
 export const SEND_MESSAGE = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/messaggioRest/insertMessage'
 //LISTA CONTATTI
 export const LISTA_CONTATTI = (hostName) => 'http://' + hostName + ':8080/ExoChatWeb/rest/utenteRest/findAllChatNonIniziate'
