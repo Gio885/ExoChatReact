@@ -4,6 +4,7 @@ import { useDispatch } from 'react-redux';
 import { LOGIN_PAGE } from '../utility/Route';
 import { registerUtente } from '../service/utenteService';
 import '../custom/RegisterPage.css'
+import { setUtente } from '../store/slice/utenteSlice';
 
 
 function RegisterPage() {
@@ -12,6 +13,8 @@ function RegisterPage() {
     const validEmail = /^[A-Za-z0-9._%+-]{4,}@([A-Za-z0-9-]{4,}\.)+[A-Za-z]{2,}$/;
     const validPassword = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@#$%^&!])[A-Za-z\d@#$%^&!]+$/;
     const history = useHistory();
+    const dispatch = useDispatch()
+    const [banner, setBanner] = useState(false)
     const [username, setUsername] = useState('')
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
@@ -36,7 +39,7 @@ function RegisterPage() {
     }, [password, confermaPassword]);
 
 
-    function register() {
+    async function register() {
 
         let checkUsername = false;
         let checkEmail = false;
@@ -84,7 +87,15 @@ function RegisterPage() {
                 password: password,
             };
 
-            registerUtente(userData, history);
+            const response = await registerUtente(userData);
+            console.log(response)
+            if(response.status == 200){
+                setBanner(true)
+                setTimeout(() => {
+                    dispatch(setUtente(response.data));
+                    history.push("/webSocket")
+                }, 5000);
+            }
 
         } else {
             return;
@@ -96,37 +107,37 @@ function RegisterPage() {
 
     return (
         <>
-            <h1 style={{color: ' #eecc8c', fontFamily: 'Fonseca, sans-serif'}}><b>REGISTRATI IN EXOCHAT</b></h1>
+            <h1 style={{color: ' #25D366', fontFamily: 'Fonseca, sans-serif'}}><b>REGISTRATI IN EXOCHAT</b></h1>
             <div className='containerRegister'>
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
                 <b>Username:</b>
-                <input type="text" placeholder='Inserisci username' style={{textAlign: 'center'}}  value={username} onChange={(e) => setUsername(e.target.value)} />
+                <input type="text" placeholder='Inserisci username' style={{textAlign: 'center',marginTop:"10px"}}  value={username} onChange={(e) => setUsername(e.target.value)} />
             </label>
             {error.username && <div style={{ color: 'red' }}>{error.username}</div>}
             <br />
             <br />
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
                 <b>Email:</b>
-                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center',marginTop:"10px"}} value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             {error.email && <div style={{ color: 'red' }}>{error.email}</div>}
             <br />
             <br />
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
             <b>Password:</b>
-                <input type="password" placeholder='Inserisci password' style={{textAlign: 'center'}}  value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" placeholder='Inserisci password' style={{textAlign: 'center',marginTop:"10px"}}  value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             {error.password && <div style={{ color: 'red' }}>{error.password}</div>}
             <br/>
             <br />
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
                 <b>Conferma Password:</b>
-                <input type="password" placeholder='Conferma password' style={{textAlign: 'center'}}  value={confermaPassword} onChange={(e) => setConfermaPassword(e.target.value)} />
+                <input type="password" placeholder='Conferma password' style={{textAlign: 'center',marginTop:"10px"}}  value={confermaPassword} onChange={(e) => setConfermaPassword(e.target.value)} />
             </label>
             <br />
             <br />
-            {passwordMatchMessage === 'Le password non corrispondono' && <div style={{ color: 'red' }}>{passwordMatchMessage}</div>}
-            {passwordMatchMessage === 'Le password corrispondono' && <div style={{ color: 'green' }}>{passwordMatchMessage}</div>}
+            {passwordMatchMessage === 'Le password non corrispondono' && <div style={{ color: 'red', fontFamily: 'Fonseca, sans-serif' }}>{passwordMatchMessage}</div>}
+            {passwordMatchMessage === 'Le password corrispondono' && <div style={{ color: 'green', fontFamily: 'Fonseca, sans-serif' }}>{passwordMatchMessage}</div>}
        
             <div>
                 <button className='buttonForRegisterPage'  type="button" onClick={() => { register() }}>Registrati</button>
@@ -134,6 +145,8 @@ function RegisterPage() {
             <div>
                 <button className='buttonForRegisterPage' type="button" onClick={() => { history.push(LOGIN_PAGE) }}>Torna a login</button>
             </div>
+
+            {banner && <h2 style={{color:"#25D366"}}>Registrazione effettuata con successo, stai per essere reindirizzato</h2>}
 
             </div>
 

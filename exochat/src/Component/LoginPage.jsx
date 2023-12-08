@@ -54,22 +54,22 @@ import { setMessaggio} from '../store/slice/messaggioSlice';
 
     return (
         <>
-            <h1 style={{color: ' #eecc8c', fontFamily: 'Fonseca, sans-serif'}}><b>BENVENUTO IN EXOCHAT</b></h1>
+            <h1 style={{color: ' #25D366', fontFamily: 'Fonseca, sans-serif'}}><b>BENVENUTO IN EXOCHAT</b></h1>
             <div className='containerLogin'>
             {(messaggio) && <><div style={{color: 'red'}}> {messaggio.data} </div>  <br /></> }
            
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
                 <b>Email:</b>
                 <br/>
-                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center'}} value={email} onChange={(e) => setEmail(e.target.value)} />
+                <input type="email" placeholder='Inserisci email' style={{textAlign: 'center',marginTop:"10px"}} value={email} onChange={(e) => setEmail(e.target.value)} />
             </label>
             <br />
             {errorMessage.errorEmail &&  <><div style={{color: 'red'}}> {errorMessage.errorEmail} </div></>}
             <br />
-            <label style={{color: ' black', fontFamily: 'sans-serif'}}>
+            <label style={{color: ' white', fontFamily: 'sans-serif'}}>
                 <b>Password:</b>
                 <br/>
-                <input type="password" placeholder='Inserisci password'style={{textAlign: 'center'}} value={password} onChange={(e) => setPassword(e.target.value)} />
+                <input type="password" placeholder='Inserisci password'style={{textAlign: 'center',marginTop:"10px"}} value={password} onChange={(e) => setPassword(e.target.value)} />
             </label>
             {errorMessage.errorPassword &&  <><div style={{color: 'red'}}> {errorMessage.errorPassword} </div></>}
             <button type="button" className='buttonForLoginPage' onClick={() => login()}>Accedi</button>

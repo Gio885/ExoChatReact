@@ -1,9 +1,8 @@
 .containerTableLista {
     width: 350px;
     text-align: center;
-    background-color: #eecc8c;
+    background-color: #075E54;
     color: white;
-    border-left: 1px solid black;
     border-right: 1px solid black;
     position: fixed;
     top: 0;
@@ -75,6 +74,13 @@
 
 .containerChatPage::-webkit-scrollbar { display: none; }
 
+.scrollNone{
+    scrollbar-width: none;
+    overflow-y: auto;
+
+}
+.scrollNone::-webkit-scrollbar { display: none; }
+
 .profiloContatto {
     width: 1000px;
     text-align: center;
@@ -108,7 +114,7 @@
 .messaggio-mittente {
     width: max-content;
     max-width: 300px; 
-    background-color: white;
+    background-color: #25D366;
     color: black;
     padding: 10px;
     margin-left: auto;
@@ -119,20 +125,38 @@
     word-wrap: break-word; 
     white-space: pre-wrap; 
 }
+.messaggio-mittente img {
+    width: 30px;
+    position: relative;
+    top:160px;
+    left:20px;
+    height: 30px;
+    border-radius: 50%;
+}
 .messaggio-destinatario {
     width: max-content;
     max-width: 300px; 
-    background-color: white;
+    background-color: rgb(124, 124, 124);
     color: black;
     padding: 10px;
     margin-right: auto;
-    margin-left: 20px;
+    margin-left: 25px;
     margin-bottom: 10px;
     border-radius: 10px;
     text-align: left;
     word-wrap: break-word; 
     white-space: pre-wrap; 
 }
+.messaggio-destinatario img{
+    width: 30px;
+    position: relative;
+    top:160px;
+    left:20px;
+    height: 30px;
+    border-radius: 50%;
+}
+
+
 
 
 
